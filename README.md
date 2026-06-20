@@ -128,7 +128,7 @@ This starts all three apps concurrently:
 | App | URL |
 |---|---|
 | Storefront | https://aethrix-frontend.onrender.com |
-| API | http://localhost:5000 |
+| API | https://aethrix.onrender.com/api |
 
 Or run them individually in separate terminals:
 ```bash
