@@ -14,6 +14,9 @@ const AdminLogin = () => {
     setLoading(true);
     try {
       const res = await api.post('/auth/login', form);
+
+      console.log("FULL RESPONSE:", res.data);
+
       const data = res.data.data;
       if (data.role !== 'admin') {
         setError('This account does not have admin access');
