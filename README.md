@@ -240,3 +240,4 @@ aethrix/
 | Customer | customer@aethrix.in | customer123 |
 
 **Change these before deploying to production.**
+# AETHRIX
