@@ -127,7 +127,7 @@ npm run dev
 This starts all three apps concurrently:
 | App | URL |
 |---|---|
-| Storefront | http://localhost:5173 |
+| Storefront | https://aethrix-frontend.onrender.com |
 | API | http://localhost:5000 |
 
 Or run them individually in separate terminals:
