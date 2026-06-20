@@ -128,7 +128,6 @@ This starts all three apps concurrently:
 | App | URL |
 |---|---|
 | Storefront | http://localhost:5173 |
-| Admin Dashboard | http://localhost:5174 |
 | API | http://localhost:5000 |
 
 Or run them individually in separate terminals:
@@ -236,7 +235,6 @@ aethrix/
 
 | Role | Email | Password |
 |---|---|---|
-| Admin | admin@aethrix.in | admin12345 |
 | Customer | customer@aethrix.in | customer123 |
 
 **Change these before deploying to production.**
