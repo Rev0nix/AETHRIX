@@ -20,22 +20,23 @@ const getMessages = asyncHandler(async (req, res) => {
 });
 
 const deleteMessage = asyncHandler(async (req, res) => {
-    const message = await Contact.findById(req.params.id);
+  const message = await Contact.findById(req.params.id);
 
-    if (!message) {
-        res.status(404);
-        throw new Error('Message not found');
-    }
+  if (!message) {
+    res.status(404);
+    throw new Error('Message not found');
+  }
 
-    await message.deleteOne();
+  await message.deleteOne();
 
-    res.json({
-        success: true,
-        message: 'Deleted'
-    });
+  res.json({
+    success: true,
+    message: 'Deleted'
+  });
 });
 
 module.exports = {
-    createMessage,
-    getMessages
+  createMessage,
+  getMessages,
+  deleteMessage
 };
