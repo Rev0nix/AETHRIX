@@ -40,9 +40,9 @@ const Shop = () => {
     productService
       .getAll(params)
       .then((res) => {
-        setProducts(res.data);
-        setPages(res.pages);
-        setTotal(res.total);
+        setProducts(res?.data || []);
+        setPages(res?.pages || 1);
+        setTotal(res?.total || 0);
       })
       .catch(() => setProducts([]))
       .finally(() => setLoading(false));
@@ -70,9 +70,8 @@ const Shop = () => {
       <div className="flex flex-wrap gap-3 px-6 lg:px-10 pb-8 border-b border-white/5 items-center">
         <button
           onClick={() => updateParam('category', '')}
-          className={`text-[10px] tracking-[0.2em] uppercase px-4 py-2 border transition-colors ${
-            !category ? 'bg-white text-black border-white' : 'border-white/15 text-white/55 hover:border-white/40'
-          }`}
+          className={`text-[10px] tracking-[0.2em] uppercase px-4 py-2 border transition-colors ${!category ? 'bg-white text-black border-white' : 'border-white/15 text-white/55 hover:border-white/40'
+            }`}
         >
           All
         </button>
@@ -80,9 +79,8 @@ const Shop = () => {
           <button
             key={c.slug}
             onClick={() => updateParam('category', c.slug)}
-            className={`text-[10px] tracking-[0.2em] uppercase px-4 py-2 border transition-colors ${
-              category === c.slug ? 'bg-white text-black border-white' : 'border-white/15 text-white/55 hover:border-white/40'
-            }`}
+            className={`text-[10px] tracking-[0.2em] uppercase px-4 py-2 border transition-colors ${category === c.slug ? 'bg-white text-black border-white' : 'border-white/15 text-white/55 hover:border-white/40'
+              }`}
           >
             {c.name}
           </button>
@@ -122,7 +120,7 @@ const Shop = () => {
       <div className="px-6 lg:px-10 py-10">
         {loading ? (
           <Loader />
-        ) : products.length === 0 ? (
+        ) :!products || products.length === 0 ? (
           <div className="text-center py-20 text-white/35">
             <p className="text-sm">No products match your filters.</p>
           </div>
@@ -148,9 +146,8 @@ const Shop = () => {
                   <button
                     key={p}
                     onClick={() => updateParam('page', p)}
-                    className={`w-9 h-9 text-xs border transition-colors ${
-                      p === page ? 'bg-accent border-accent' : 'border-white/15 text-white/50 hover:border-white/40'
-                    }`}
+                    className={`w-9 h-9 text-xs border transition-colors ${p === page ? 'bg-accent border-accent' : 'border-white/15 text-white/50 hover:border-white/40'
+                      }`}
                   >
                     {p}
                   </button>
