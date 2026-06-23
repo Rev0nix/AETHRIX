@@ -246,7 +246,9 @@ const fetchAmazonProduct = asyncHandler(async (req, res) => {
       name: product.title,
       description: product.description || '',
       price: product.buybox_winner?.price?.value || 0,
-      image: product.main_image?.link || ''
+      image: product.main_image?.link || '',
+      rating: product.rating || 0,
+      numReviews: product.ratings_total || 0
     });
 
   } catch (error) {

@@ -3,7 +3,18 @@ import Topbar from '../components/Topbar';
 import ProductTable from '../components/ProductTable';
 import api from '../services/api';
 
-const emptyForm = { name: '', description: '', category: 'electronics', price: '', compareAtPrice: '', stock: '', badge: '', affiliateLink: '' };
+const emptyForm = {
+  name: '',
+  description: '',
+  category: 'electronics',
+  price: '',
+  compareAtPrice: '',
+  stock: '',
+  badge: '',
+  affiliateLink: '',
+  rating: 0,
+  numReviews: 0
+};
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -31,6 +42,8 @@ const Products = () => {
         description: res.data.description,
         price: res.data.price,
         affiliateLink: amazonUrl,
+        rating: res.data.rating,
+        numReviews: res.data.numReviews,
       }));
 
       // Store image URL for later use

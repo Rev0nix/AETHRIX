@@ -67,7 +67,11 @@ const Product = () => {
         <div className="flex flex-col gap-3">
           <div className="aspect-[4/5] bg-base-700 flex items-center justify-center overflow-hidden">
             {product.images?.[activeImg]?.url ? (
-              <img src={product.images[activeImg].url} alt={product.name} className="w-full h-full object-cover" />
+              <img
+                src={product.images[activeImg].url}
+                alt={product.name}
+                className="w-full h-full object-cover transition duration-300 hover:scale-105"
+              />
             ) : (
               <span className="font-display text-7xl text-white/10">AX</span>
             )}
@@ -209,20 +213,55 @@ const Product = () => {
         )}
 
         {reviews.length === 0 ? (
-          <p className="text-white/30 text-sm">No reviews yet. Be the first to share your thoughts.</p>
+          <div className="flex flex-col gap-6">
+            <div className="border-b border-white/5 pb-6">
+              <div className="flex items-center gap-2 mb-2">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <TbStarFilled
+                    key={i}
+                    className={i < Math.round(product.rating || 0)
+                      ? "text-accent-glow"
+                      : "text-white/15"}
+                  />
+                ))}
+              </div>
+
+              <div className="font-semibold text-sm mb-1">
+                Amazon Customer Reviews
+              </div>
+
+              <p className="text-sm text-white/55 leading-relaxed">
+                Based on {product.numReviews || 0} customer reviews.
+              </p>
+            </div>
+          </div>
         ) : (
           <div className="flex flex-col gap-6">
             {reviews.map((r) => (
               <div key={r._id} className="border-b border-white/5 pb-6">
                 <div className="flex items-center gap-2 mb-2">
                   {Array.from({ length: 5 }).map((_, i) => (
-                    <TbStarFilled key={i} className={`text-sm ${i < r.rating ? 'text-accent-glow' : 'text-white/15'}`} />
+                    <TbStarFilled
+                      key={i}
+                      className={`text-sm ${i < r.rating ? "text-accent-glow" : "text-white/15"
+                        }`}
+                    />
                   ))}
-                  {r.verifiedPurchase && <span className="text-[10px] text-green-400/70 ml-2">Verified Purchase</span>}
                 </div>
-                {r.title && <div className="font-semibold text-sm mb-1">{r.title}</div>}
-                <p className="text-sm text-white/55 leading-relaxed mb-2">{r.comment}</p>
-                <div className="text-xs text-white/30">{r.name}</div>
+
+                {r.title && (
+                  <div className="font-semibold text-sm mb-1">
+                    {r.title}
+                  </div>
+                )}
+
+                <p className="text-sm text-white/55 leading-relaxed mb-2">
+                  {r.comment}
+                </p>
+
+                <div className="text-xs text-white/30">
+                  {r.name}
+                </div>
               </div>
             ))}
           </div>
