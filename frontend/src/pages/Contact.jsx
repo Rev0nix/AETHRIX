@@ -75,7 +75,7 @@ const Contact = () => {
             className="inline-flex items-center gap-2 text-sm border-b border-white/20 hover:border-white pb-1 mb-10"
           >
             <TbMail />
-            aethrix@gmail.com
+            <aethrixofficial className="inline-block">aethrixofficial</aethrixofficial>@gmail.com
           </a>
 
           {/* Support */}
