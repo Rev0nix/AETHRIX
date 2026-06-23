@@ -7,6 +7,7 @@ const emptyForm = { name: '', description: '', category: 'electronics', price: '
 
 const Products = () => {
   const [products, setProducts] = useState([]);
+  const [selected, setSelected] = useState([]);
   const [showForm, setShowForm] = useState(false);
   const [editing, setEditing] = useState(null);
   const [form, setForm] = useState(emptyForm);
@@ -38,7 +39,7 @@ const Products = () => {
         ...f,
         imageUrl: res.data.image
       }));
-      
+
 
     } catch (err) {
       console.log(err);
@@ -129,14 +130,60 @@ const Products = () => {
     load();
   };
 
+  const toggleSelect = (id) => {
+    setSelected((prev) =>
+      prev.includes(id)
+        ? prev.filter((x) => x !== id)
+        : [...prev, id]
+    );
+  };
+
+  const toggleSelectAll = () => {
+    if (selected.length === products.length) {
+      setSelected([]);
+    } else {
+      setSelected(products.map((p) => p._id));
+    }
+  };
+
+  const deleteSelected = async () => {
+    if (!window.confirm(`Delete ${selected.length} products?`))
+      return;
+
+    try {
+      for (const id of selected) {
+        await api.delete(`/products/${id}`);
+      }
+
+      setSelected([]);
+      load();
+    } catch (err) {
+      alert('Delete failed');
+    }
+  };
+
   return (
     <div>
       <Topbar
         title="Products"
         action={
-          <button onClick={openCreate} className="bg-white text-black text-[11px] font-bold tracking-wider uppercase px-6 py-2.5">
-            + Add Product
-          </button>
+          <div className="flex gap-3">
+            {selected.length > 0 && (
+              <button
+                onClick={deleteSelected}
+                className="bg-red-600 text-white text-[11px] font-bold px-5 py-2.5"
+              >
+                Delete Selected ({selected.length})
+              </button>
+            )}
+
+            <button
+              onClick={openCreate}
+              className="bg-white text-black text-[11px] font-bold tracking-wider uppercase px-6 py-2.5"
+            >
+              + Add Product
+            </button>
+          </div>
         }
       />
 
@@ -148,7 +195,17 @@ const Products = () => {
       />
 
       <div className="bg-base-900 border border-white/5">
-        <ProductTable products={products} onEdit={openEdit} onDelete={handleDelete} />
+        <p className="text-white/40 mb-3">
+          {products.length} Products
+        </p>
+        <ProductTable
+          products={products}
+          onEdit={openEdit}
+          onDelete={handleDelete}
+          selected={selected}
+          toggleSelect={toggleSelect}
+          toggleSelectAll={toggleSelectAll}
+        />
       </div>
 
       {showForm && (
