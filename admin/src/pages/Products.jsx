@@ -3,7 +3,7 @@ import Topbar from '../components/Topbar';
 import ProductTable from '../components/ProductTable';
 import api from '../services/api';
 
-const emptyForm = { name: '', description: '', category: 'electronics', price: '', compareAtPrice: '', stock: '', badge: '' };
+const emptyForm = { name: '', description: '', category: 'electronics', price: '', compareAtPrice: '', stock: '', badge: '', affiliateLink: '' };
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -12,9 +12,38 @@ const Products = () => {
   const [form, setForm] = useState(emptyForm);
   const [search, setSearch] = useState('');
   const [images, setImages] = useState([]);
+  const [amazonUrl, setAmazonUrl] = useState('');
 
   const load = () => {
     api.get('/products', { params: { limit: 100, keyword: search || undefined } }).then((r) => setProducts(r.data.data));
+  };
+
+  const fetchAmazonDetails = async () => {
+    try {
+      const res = await api.post('/products/fetch-amazon', {
+        url: amazonUrl,
+      });
+
+      setForm((f) => ({
+        ...f,
+        name: res.data.name,
+        description: res.data.description,
+        price: res.data.price,
+        affiliateLink: amazonUrl,
+      }));
+
+      // Store image URL for later use
+      setImages([res.data.image]);
+      setForm((f) => ({
+        ...f,
+        imageUrl: res.data.image
+      }));
+      
+
+    } catch (err) {
+      console.log(err);
+      alert('Could not fetch product');
+    }
   };
 
   useEffect(() => {
@@ -38,6 +67,7 @@ const Products = () => {
       compareAtPrice: p.compareAtPrice || '',
       stock: p.stock,
       badge: p.badge || '',
+      affiliateLink: p.affiliateLink || '',
     });
     setShowForm(true);
   };
@@ -126,6 +156,25 @@ const Products = () => {
           <form onClick={(e) => e.stopPropagation()} onSubmit={handleSubmit} className="bg-base-900 border border-white/10 p-8 w-full max-w-lg max-h-[85vh] overflow-y-auto">
             <h3 className="font-display text-2xl tracking-wider mb-6">{editing ? 'Edit Product' : 'New Product'}</h3>
 
+            <Field label="Amazon Product URL">
+              <div className="flex gap-2">
+                <input
+                  value={amazonUrl}
+                  onChange={(e) => setAmazonUrl(e.target.value)}
+                  className="input"
+                  placeholder="https://www.amazon.in/dp/..."
+                />
+
+                <button
+                  type="button"
+                  onClick={fetchAmazonDetails}
+                  className="bg-accent px-4"
+                >
+                  Fetch
+                </button>
+              </div>
+            </Field>
+
             <Field label="Name">
               <input required value={form.name} onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))} className="input" />
             </Field>
@@ -160,6 +209,20 @@ const Products = () => {
                 </select>
               </Field>
             </div>
+            <Field label="Affiliate Link">
+              <input
+                type="text"
+                value={form.affiliateLink}
+                onChange={(e) =>
+                  setForm((f) => ({
+                    ...f,
+                    affiliateLink: e.target.value,
+                  }))
+                }
+                placeholder="https://amzn.to/..."
+                className="input"
+              />
+            </Field>
             <Field label="Product Images">
               <input
                 type="file"
@@ -169,6 +232,15 @@ const Products = () => {
                 onChange={(e) => setImages([...e.target.files])}
               />
             </Field>
+            {images.length > 0 && typeof images[0] === 'string' && (
+              <div className="mb-4">
+                <img
+                  src={images[0]}
+                  alt="Product Preview"
+                  className="w-40 rounded-lg border border-white/10"
+                />
+              </div>
+            )}
             <div className="flex gap-3 mt-6">
               <button type="submit" className="flex-1 bg-accent hover:bg-accent-dim text-sm font-semibold py-3">
                 {editing ? 'Save Changes' : 'Create Product'}

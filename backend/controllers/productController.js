@@ -1,4 +1,5 @@
 const asyncHandler = require('express-async-handler');
+const axios = require('axios');
 const Product = require('../models/Product');
 const cloudinary = require('../config/cloudinary');
 
@@ -124,8 +125,23 @@ const getRelatedProducts = asyncHandler(async (req, res) => {
 // @route   POST /api/products
 // @access  Private/Admin
 const createProduct = asyncHandler(async (req, res) => {
-  const product = await Product.create(req.body);
-  res.status(201).json({ success: true, data: product });
+  const product = await Product.create({
+    ...req.body,
+
+    images: req.body.imageUrl
+      ? [
+        {
+          url: req.body.imageUrl,
+          alt: req.body.name
+        }
+      ]
+      : []
+  });
+
+  res.status(201).json({
+    success: true,
+    data: product
+  });
 });
 
 // @desc    Update product
@@ -178,8 +194,10 @@ const uploadProductImages = asyncHandler(async (req, res) => {
   }
 
   if (!req.files || req.files.length === 0) {
-    res.status(400);
-    throw new Error('No images provided');
+    return res.status(201).json({
+      success: true,
+      data: product.images
+    });
   }
 
   const uploadedImages = [];
@@ -196,6 +214,51 @@ const uploadProductImages = asyncHandler(async (req, res) => {
   res.status(201).json({ success: true, data: product.images });
 });
 
+// @desc    Fetch Amazon Product
+// @route   POST /api/products/fetch-amazon
+// @access  Private/Admin
+
+const fetchAmazonProduct = asyncHandler(async (req, res) => {
+  const { url } = req.body;
+
+  try {
+    const response = await axios.get(
+      'https://api.rainforestapi.com/request',
+      {
+        params: {
+          api_key: process.env.RAINFOREST_API_KEY,
+          type: 'product',
+          url
+        }
+      }
+    );
+    console.log(JSON.stringify(response.data, null, 2));
+
+    if (!response.data.product) {
+      return res.status(404).json({
+        message: response.data.message || 'Product not found'
+      });
+    }
+
+    const product = response.data.product;
+
+    res.json({
+      name: product.title,
+      description: product.description || '',
+      price: product.buybox_winner?.price?.value || 0,
+      image: product.main_image?.link || ''
+    });
+
+  } catch (error) {
+    console.log('RAINFOREST ERROR:');
+    console.log(error.response?.data || error.message);
+
+    res.status(500).json({
+      error: error.response?.data || error.message
+    });
+  }
+});
+
 module.exports = {
   getProducts,
   getProductById,
@@ -207,4 +270,5 @@ module.exports = {
   updateProduct,
   deleteProduct,
   uploadProductImages,
+  fetchAmazonProduct
 };

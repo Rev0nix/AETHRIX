@@ -127,9 +127,8 @@ const Product = () => {
                   <button
                     key={s}
                     onClick={() => setSize(s)}
-                    className={`w-12 h-12 text-xs border transition-colors ${
-                      size === s ? 'bg-white text-black border-white' : 'border-white/15 text-white/70 hover:border-white/40'
-                    }`}
+                    className={`w-12 h-12 text-xs border transition-colors ${size === s ? 'bg-white text-black border-white' : 'border-white/15 text-white/70 hover:border-white/40'
+                      }`}
                   >
                     {s}
                   </button>
@@ -145,17 +144,18 @@ const Product = () => {
             <button onClick={() => setQty((q) => q + 1)} className="w-11 h-11 text-xl hover:bg-white/10">+</button>
           </div>
 
-          <button onClick={() => addToCart(product, qty, fashionLike ? size : null)} className="btn-primary w-full mb-3">
-            Add to Bag
-          </button>
-          <Link to="/checkout" onClick={() => addToCart(product, qty, fashionLike ? size : null)} className="btn-outline w-full block text-center mb-3">
-            Buy Now
-          </Link>
+          <a
+            href={product.affiliateLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary w-full mb-3 block text-center"
+          >
+            Buy on Amazon
+          </a>
           <button
             onClick={() => toggleWishlist(product)}
-            className={`w-full text-xs tracking-widest uppercase py-3 border transition-colors mb-7 ${
-              wished ? 'border-accent text-accent-glow' : 'border-white/15 text-white/50 hover:border-white/40'
-            }`}
+            className={`w-full text-xs tracking-widest uppercase py-3 border transition-colors mb-7 ${wished ? 'border-accent text-accent-glow' : 'border-white/15 text-white/50 hover:border-white/40'
+              }`}
           >
             {wished ? '♥ Wishlisted' : '♡ Add to Wishlist'}
           </button>

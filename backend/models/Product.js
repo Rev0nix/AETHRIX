@@ -29,6 +29,10 @@ const productSchema = new mongoose.Schema(
     compareAtPrice: { type: Number, min: 0 },
     costPrice: { type: Number, min: 0 },
     images: [{ url: String, publicId: String, alt: String }],
+    affiliateLink: {
+      type: String,
+      default: '',
+    },
     variants: [variantSchema],
     stock: { type: Number, required: true, default: 0, min: 0 },
     sku: { type: String, unique: true, sparse: true },
