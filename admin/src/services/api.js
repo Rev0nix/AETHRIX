@@ -6,7 +6,11 @@ const api = axios.create({
 
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem('aethrix_admin_token');
-  if (token) config.headers.Authorization = `Bearer ${token}`;
+
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+
   return config;
 });
 
@@ -17,7 +21,12 @@ api.interceptors.response.use(
       localStorage.removeItem('aethrix_admin_token');
       window.location.href = '/login';
     }
-    return Promise.reject(err.response?.data || { message: 'Network error' });
+
+    return Promise.reject(
+      err.response?.data || {
+        message: 'Network error'
+      }
+    );
   }
 );
 

@@ -12,6 +12,8 @@ const userRoutes = require('./routes/userRoutes');
 const couponRoutes = require('./routes/couponRoutes');
 const reviewRoutes = require('./routes/reviewRoutes');
 const contactRoutes = require('./routes/contactRoutes');
+const importRoutes = require('./routes/importRoutes');
+const searchImportRoutes = require('./routes/searchImportRoutes');
 
 connectDB();
 
@@ -44,6 +46,8 @@ app.use('/api/users', userRoutes);
 app.use('/api/coupons', couponRoutes);
 app.use('/api/reviews', reviewRoutes);
 app.use('/api/contact', contactRoutes);
+app.use('/api/import', importRoutes);
+app.use('/api/search-import', searchImportRoutes);
 
 // Error handling
 app.use(notFound);

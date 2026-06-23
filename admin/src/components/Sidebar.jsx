@@ -8,6 +8,7 @@ import {
   TbChartLine,
   TbMessage,
   TbArrowLeft,
+  TbDownload,
 } from 'react-icons/tb';
 
 const NAV_ITEMS = [
@@ -16,6 +17,7 @@ const NAV_ITEMS = [
   { to: '/products', icon: TbShirt, label: 'Products' },
   { to: '/customers', icon: TbUsers, label: 'Customers' },
   { to: '/messages', icon: TbMessage, label: 'Messages' },
+  { to: '/auto-import', icon: TbDownload, label: 'Auto Import' },
   { to: '/coupons', icon: TbTag, label: 'Coupons' },
   { to: '/analytics', icon: TbChartLine, label: 'Analytics' },
 ];
