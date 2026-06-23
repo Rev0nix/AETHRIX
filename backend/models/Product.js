@@ -22,10 +22,27 @@ const productSchema = new mongoose.Schema(
     category: {
       type: String,
       required: true,
-      enum: ['electronics', 'fashion', 'smart-gadgets', 'home-decor', 'fitness', 'accessories'],
+      enum: [
+        'electronics',
+        'fashion',
+        'home-kitchen',
+        'beauty',
+        'sports-fitness',
+        'gaming',
+        'books',
+        'automotive',
+        'baby-toys',
+        'groceries',
+        'pet-supplies',
+        'office',
+        'health',
+        'jewellery'
+      ]
     },
-    subCategory: { type: String },
-    price: { type: Number, required: [true, 'Price is required'], min: 0 },
+    subCategory: {
+      type: String,
+      default: ''
+    }, price: { type: Number, required: [true, 'Price is required'], min: 0 },
     compareAtPrice: { type: Number, min: 0 },
     costPrice: { type: Number, min: 0 },
     images: [{ url: String, publicId: String, alt: String }],

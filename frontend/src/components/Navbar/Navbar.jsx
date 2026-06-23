@@ -7,6 +7,7 @@ import { useCart } from '../../hooks/useCart';
 import { useWishlist } from '../../hooks/useWishlist';
 import { productService } from '../../services/productService';
 import SearchDrawer from '../SearchDrawer/SearchDrawer';
+import { categories } from '../../data/staticContent';
 
 const NAV_LINKS = [
   { to: '/', label: 'Home' },
@@ -23,6 +24,7 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [showCategories, setShowCategories] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -34,16 +36,16 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled ? 'glass shadow-glow' : 'bg-transparent'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass shadow-glow' : 'bg-transparent'
+          }`}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-10 h-[70px] flex items-center justify-between">
           <Link to="/" className="font-display text-2xl tracking-[0.3em] text-white">
             AETHRIX
           </Link>
 
-          <ul className="hidden lg:flex gap-9 list-none">
+          <ul className="hidden lg:flex gap-9 list-none items-center">
+
             {NAV_LINKS.map((link) => (
               <li key={link.to}>
                 <Link
@@ -54,6 +56,44 @@ const Navbar = () => {
                 </Link>
               </li>
             ))}
+
+            <li
+              className="relative"
+              onMouseEnter={() => setShowCategories(true)}
+              onMouseLeave={() => setShowCategories(false)}
+            >
+              <button className="text-xs tracking-[0.2em] uppercase text-white/55 hover:text-white">
+                Categories ▼
+              </button>
+
+              {showCategories && (
+                <div className="absolute top-8 left-0 bg-black border border-white/10 rounded-xl p-6 w-[800px] grid grid-cols-4 gap-6 z-50">
+
+                  {categories.map((cat) => (
+                    <div key={cat.slug}>
+                      <h3 className="font-bold text-white mb-3">
+                        {cat.name}
+                      </h3>
+
+                      <div className="space-y-2">
+                        {cat.subCategories?.map((sub) => (
+                          <Link
+                            key={sub}
+                            to={`/shop?category=${cat.slug}&subCategory=${encodeURIComponent(sub)}`}
+                            className="block text-sm text-white/60 hover:text-white"
+                          >
+                            {sub}
+                          </Link>
+                        ))}
+                      </div>
+
+                    </div>
+                  ))}
+
+                </div>
+              )}
+            </li>
+
           </ul>
 
           <div className="flex items-center gap-4">

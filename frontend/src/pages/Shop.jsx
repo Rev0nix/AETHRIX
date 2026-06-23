@@ -18,7 +18,6 @@ const Shop = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [pages, setPages] = useState(1);
   const [total, setTotal] = useState(0);
   const [minPrice, setMinPrice] = useState(searchParams.get('minPrice') || '');
   const [maxPrice, setMaxPrice] = useState(searchParams.get('maxPrice') || '');
@@ -26,12 +25,14 @@ const Shop = () => {
   const category = searchParams.get('category') || '';
   const sort = searchParams.get('sort') || '';
   const keyword = searchParams.get('keyword') || '';
-  const page = Number(searchParams.get('page')) || 1;
+  const subCategory = searchParams.get('subCategory') || '';
+  const [limit, setLimit] = useState(12);
 
   const fetchProducts = useCallback(() => {
     setLoading(true);
-    const params = { page, limit: 12 };
+    const params = { page: 1, limit };
     if (category) params.category = category;
+    if (subCategory) params.subCategory = subCategory;
     if (sort) params.sort = sort;
     if (keyword) params.keyword = keyword;
     if (minPrice) params.minPrice = minPrice;
@@ -41,29 +42,45 @@ const Shop = () => {
       .getAll(params)
       .then((res) => {
         setProducts(res?.data || []);
-        setPages(res?.pages || 1);
+
         setTotal(res?.total || 0);
       })
-      .catch(() => setProducts([]))
+      .catch((err) => {
+        console.log(err);
+        setProducts([]);
+      })
       .finally(() => setLoading(false));
-  }, [category, sort, keyword, page, minPrice, maxPrice]);
-
+  }, [category, subCategory, sort, keyword, limit, minPrice, maxPrice]);
   useEffect(() => {
     fetchProducts();
   }, [fetchProducts]);
 
   const updateParam = (key, value) => {
     const next = new URLSearchParams(searchParams);
-    if (value) next.set(key, value);
-    else next.delete(key);
-    next.delete('page');
+
+    if (value !== '' && value !== null && value !== undefined) {
+      next.set(key, value);
+    } else {
+      next.delete(key);
+    }
+
+    setLimit(12);
+
     setSearchParams(next);
   };
 
   return (
     <div className="pt-10">
       <div className="px-6 lg:px-10 pb-8">
-        <div className="eyebrow mb-2">{keyword ? `Results for "${keyword}"` : 'All Products'}</div>
+        <div className="eyebrow mb-2">
+          {subCategory
+            ? `${category} → ${subCategory}`
+            : category
+              ? category
+              : keyword
+                ? `Results for "${keyword}"`
+                : 'All Products'}
+        </div>
         <h1 className="section-title">Shop</h1>
       </div>
 
@@ -120,7 +137,7 @@ const Shop = () => {
       <div className="px-6 lg:px-10 py-10">
         {loading ? (
           <Loader />
-        ) :!products || products.length === 0 ? (
+        ) : !products || products.length === 0 ? (
           <div className="text-center py-20 text-white/35">
             <p className="text-sm">No products match your filters.</p>
           </div>
@@ -140,18 +157,14 @@ const Shop = () => {
               ))}
             </motion.div>
 
-            {pages > 1 && (
-              <div className="flex justify-center gap-2 mt-12">
-                {Array.from({ length: pages }, (_, i) => i + 1).map((p) => (
-                  <button
-                    key={p}
-                    onClick={() => updateParam('page', p)}
-                    className={`w-9 h-9 text-xs border transition-colors ${p === page ? 'bg-accent border-accent' : 'border-white/15 text-white/50 hover:border-white/40'
-                      }`}
-                  >
-                    {p}
-                  </button>
-                ))}
+            {products.length < total && (
+              <div className="flex justify-center mt-12">
+                <button
+                  onClick={() => setLimit(prev => prev + 12)}
+                  className="px-6 py-3 border border-white/15 hover:border-white/40"
+                >
+                  Load More
+                </button>
               </div>
             )}
           </>

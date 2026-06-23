@@ -1,10 +1,173 @@
 export const categories = [
-  { slug: 'electronics', name: 'Electronics', icon: 'TbDeviceLaptop', desc: 'Audio, cameras, chargers & more' },
-  { slug: 'fashion', name: 'Fashion', icon: 'TbShirt', desc: 'Streetwear, denim & outerwear' },
-  { slug: 'smart-gadgets', name: 'Smart Gadgets', icon: 'TbDeviceWatch', desc: 'Wearables & connected devices' },
-  { slug: 'home-decor', name: 'Home Decor', icon: 'TbArmchair', desc: 'Lighting, textiles & accents' },
-  { slug: 'fitness', name: 'Fitness', icon: 'TbBarbell', desc: 'Home gym & training gear' },
-  { slug: 'accessories', name: 'Accessories', icon: 'TbBriefcase', desc: 'Wallets, watches & bags' },
+  {
+    slug: "electronics",
+    name: "Electronics",
+    icon: "TbDeviceLaptop",
+    desc: "Mobiles, laptops, audio and accessories",
+    subCategories: [
+      "Mobiles",
+      "Laptops",
+      "Tablets",
+      "Smart Watches",
+      "Headphones",
+      "Earbuds",
+      "Speakers",
+      "Cameras",
+      "Power Banks",
+      "Chargers & Cables",
+      "Monitors",
+      "Printers"
+    ]
+  },
+
+  {
+    slug: "fashion",
+    name: "Fashion",
+    icon: "TbShirt",
+    desc: "Clothing and accessories",
+    subCategories: [
+      "Men's Clothing",
+      "Women's Clothing",
+      "Kids Wear",
+      "Shoes",
+      "Watches",
+      "Handbags",
+      "Jewellery",
+      "Sunglasses"
+    ]
+  },
+
+  {
+    slug: "home-kitchen",
+    name: "Home & Kitchen",
+    icon: "TbArmchair",
+    desc: "Furniture and home essentials",
+    subCategories: [
+      "Furniture",
+      "Kitchen Appliances",
+      "Cookware",
+      "Storage",
+      "Home Decor",
+      "Lighting",
+      "Bedsheets",
+      "Curtains"
+    ]
+  },
+
+  {
+    slug: "beauty",
+    name: "Beauty & Personal Care",
+    icon: "TbBriefcase",
+    desc: "Skin and hair care",
+    subCategories: [
+      "Skin Care",
+      "Hair Care",
+      "Makeup",
+      "Perfumes",
+      "Trimmers",
+      "Shaving Kits"
+    ]
+  },
+
+  {
+    slug: "fitness",
+    name: "Sports & Fitness",
+    icon: "TbBarbell",
+    desc: "Gym and sports accessories",
+    subCategories: [
+      "Gym Equipment",
+      "Yoga Mats",
+      "Protein Supplements",
+      "Cycles",
+      "Cricket",
+      "Football",
+      "Badminton"
+    ]
+  },
+
+  {
+    slug: "gaming",
+    name: "Gaming",
+    icon: "TbDeviceWatch",
+    desc: "Consoles and accessories",
+    subCategories: [
+      "PlayStation",
+      "Xbox",
+      "Gaming Mouse",
+      "Gaming Keyboard",
+      "Controllers",
+      "Gaming Chairs"
+    ]
+  },
+
+  {
+    slug: "books",
+    name: "Books & Stationery",
+    icon: "TbBriefcase",
+    desc: "Study essentials",
+    subCategories: [
+      "Academic Books",
+      "Novels",
+      "Notebooks",
+      "Pens",
+      "School Supplies"
+    ]
+  },
+
+  {
+    slug: "automotive",
+    name: "Automotive",
+    icon: "TbBriefcase",
+    desc: "Car and bike accessories",
+    subCategories: [
+      "Helmets",
+      "Car Accessories",
+      "Bike Accessories",
+      "Tyres",
+      "Car Care"
+    ]
+  },
+
+  {
+    slug: "baby",
+    name: "Baby & Toys",
+    icon: "TbBriefcase",
+    desc: "Baby products and toys",
+    subCategories: [
+      "Baby Care",
+      "Baby Clothing",
+      "Feeding",
+      "Toys",
+      "Remote Cars"
+    ]
+  },
+
+  {
+    slug: "groceries",
+    name: "Groceries",
+    icon: "TbBriefcase",
+    desc: "Daily essentials",
+    subCategories: [
+      "Rice",
+      "Snacks",
+      "Beverages",
+      "Dry Fruits",
+      "Organic Food"
+    ]
+  },
+
+  {
+    slug: "pet",
+    name: "Pet Supplies",
+    icon: "TbBriefcase",
+    desc: "Pet products",
+    subCategories: [
+      "Dog Food",
+      "Cat Food",
+      "Pet Toys",
+      "Pet Grooming"
+    ]
+  }
 ];
 
 export const trustedBrands = ['Apple', 'Samsung', 'Sony', 'Nike', 'Adidas', 'Puma', 'Bose', 'Garmin'];

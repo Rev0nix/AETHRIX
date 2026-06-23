@@ -18,6 +18,9 @@ const getProducts = asyncHandler(async (req, res) => {
   if (req.query.category) {
     query.category = req.query.category;
   }
+  if (req.query.subCategory) {
+    query.subCategory = req.query.subCategory;
+  }
   if (req.query.minPrice || req.query.maxPrice) {
     query.price = {};
     if (req.query.minPrice) query.price.$gte = Number(req.query.minPrice);
@@ -115,9 +118,10 @@ const getRelatedProducts = asyncHandler(async (req, res) => {
   }
   const related = await Product.find({
     category: product.category,
+    subCategory: product.subCategory,
     _id: { $ne: product._id },
     isActive: true,
-  }).limit(4);
+  }).limit(8);
   res.json({ success: true, data: related });
 });
 
