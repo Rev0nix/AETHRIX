@@ -1,3 +1,4 @@
+import api from '../services/api';
 import { useState } from 'react';
 import {
   TbBrandInstagram,
@@ -15,19 +16,25 @@ const Contact = () => {
 
   const [sent, setSent] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // TODO: Connect EmailJS or backend API
-    setSent(true);
+    try {
+      await api.post('/contact', form);
 
-    setForm({
-      name: '',
-      email: '',
-      message: '',
-    });
+      setSent(true);
 
-    setTimeout(() => setSent(false), 4000);
+      setForm({
+        name: '',
+        email: '',
+        message: '',
+      });
+
+      setTimeout(() => setSent(false), 4000);
+    } catch (err) {
+      alert('Could not send message');
+      console.log(err);
+    }
   };
 
   return (
