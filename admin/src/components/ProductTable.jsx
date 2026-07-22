@@ -19,10 +19,10 @@ const ProductTable = ({
           />
         </th>
 
-        <th className="text-left py-3 px-6">Product</th>
-        <th className="text-left py-3 px-6">Category</th>
-        <th className="text-left py-3 px-6">Price</th>
         <th className="text-left py-3 px-6">Stock</th>
+        <th className="text-center py-3 px-4">Featured</th>
+        <th className="text-center py-3 px-4">Deal</th>
+        <th className="text-center py-3 px-4">Flash</th>
         <th className="text-left py-3 px-6">Status</th>
         <th className="text-left py-3 px-6">Actions</th>
       </tr>
@@ -56,8 +56,16 @@ const ProductTable = ({
                 <div className="font-medium">{p.name}</div>
 
                 <div className="text-xs text-white/40">
-                  {p._id.slice(-6)}
+                  SKU: {p._id.slice(-8).toUpperCase()}
                 </div>
+
+                {p.badge && (
+                  <div className="mt-1">
+                    <span className="bg-blue-500/20 text-blue-400 text-[10px] px-2 py-0.5 rounded-full">
+                      {p.badge}
+                    </span>
+                  </div>
+                )}
               </div>
             </div>
           </td>
@@ -75,27 +83,42 @@ const ProductTable = ({
           {/* Stock */}
           <td className="py-3 px-6">
             <span
-              className={
-                p.stock > 20
-                  ? "text-green-400"
-                  : p.stock > 5
-                    ? "text-yellow-400"
-                    : "text-red-400"
-              }
+              className={`px-3 py-1 rounded-full text-xs font-semibold ${p.stock > 20
+                ? "bg-green-500/20 text-green-400"
+                : p.stock > 5
+                  ? "bg-yellow-500/20 text-yellow-400"
+                  : "bg-red-500/20 text-red-400"
+                }`}
             >
-              {p.stock}
+              {p.stock > 20
+                ? `${p.stock} In Stock`
+                : p.stock > 5
+                  ? `${p.stock} Low Stock`
+                  : `${p.stock} Out`}
             </span>
+          </td>
+
+          <td className="py-3 px-4 text-center">
+            {p.isFeatured ? "⭐" : "—"}
+          </td>
+
+          <td className="py-3 px-4 text-center">
+            {p.todaysDeal ? "🎯" : "—"}
+          </td>
+
+          <td className="py-3 px-4 text-center">
+            {p.isFlashSale ? "🔥" : "—"}
           </td>
 
           {/* Status */}
           <td className="py-3 px-6">
             <span
               className={`text-[10px] uppercase px-2.5 py-1 rounded ${p.isActive
-                  ? "bg-green-500/10 text-green-400"
-                  : "bg-white/5 text-white/30"
+                ? "bg-green-500/10 text-green-400"
+                : "bg-white/5 text-white/30"
                 }`}
             >
-              {p.isActive ? "Active" : "Inactive"}
+              {p.isActive ? "🟢 Active" : "⚫ Inactive"}
             </span>
           </td>
 

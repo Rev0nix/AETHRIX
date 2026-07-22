@@ -45,6 +45,94 @@ const Hero = () => {
             Our Story
           </Link>
         </div>
+        <div className="mt-10 flex flex-wrap justify-center gap-8 text-white/60 text-sm">
+
+          <div className="flex items-center gap-2">
+            🚚
+            <span>Free Shipping</span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            🔄
+            <span>7 Days Return</span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            🔒
+            <span>Secure Payment</span>
+          </div>
+
+          <div className="flex items-center gap-2">
+            ⭐
+            <span>25K+ Happy Customers</span>
+          </div>
+
+        </div>
+
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+
+          <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-6 hover:border-accent transition-all duration-300 hover:-translate-y-2">
+            <img
+              src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500"
+              alt="iPhone"
+              className="w-full h-48 object-cover rounded-xl mb-4"
+            />
+
+            <p className="text-white/50 text-sm">
+              Apple
+            </p>
+
+            <h3 className="text-white text-xl font-semibold mt-2">
+              iPhone 16 Pro
+            </h3>
+
+            <p className="text-accent font-bold mt-3">
+              ₹1,19,999
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-6 hover:border-accent transition-all duration-300 hover:-translate-y-2">
+            <img
+              src="https://images.unsplash.com/photo-1517336714739-489689fd1ca8?w=500"
+              alt="MacBook"
+              className="w-full h-48 object-cover rounded-xl mb-4"
+            />
+
+            <p className="text-white/50 text-sm">
+              Apple
+            </p>
+
+            <h3 className="text-white text-xl font-semibold mt-2">
+              MacBook Air M4
+            </h3>
+
+            <p className="text-accent font-bold mt-3">
+              ₹1,39,999
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-6 hover:border-accent transition-all duration-300 hover:-translate-y-2">
+            <img
+              src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=500"
+              alt="PlayStation"
+              className="w-full h-48 object-cover rounded-xl mb-4"
+            />
+
+            <p className="text-white/50 text-sm">
+              Sony
+            </p>
+
+            <h3 className="text-white text-xl font-semibold mt-2">
+              PlayStation 5
+            </h3>
+
+            <p className="text-accent font-bold mt-3">
+              ₹54,999
+            </p>
+          </div>
+
+        </div>
+
       </motion.div>
 
       <div className="absolute bottom-9 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/25 text-[10px] tracking-[0.25em] uppercase">

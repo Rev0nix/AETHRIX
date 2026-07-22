@@ -19,6 +19,7 @@ const productSchema = new mongoose.Schema(
     description: { type: String, required: [true, 'Description is required'] },
     shortDescription: { type: String },
     brand: { type: String, default: 'AETHRIX' },
+    
     category: {
       type: String,
       required: true,
@@ -46,7 +47,7 @@ const productSchema = new mongoose.Schema(
     compareAtPrice: { type: Number, min: 0 },
     costPrice: { type: Number, min: 0 },
     images: [{ url: String, publicId: String, alt: String }],
-    affiliateLink: {
+    productUrl: {
       type: String,
       default: '',
     },
@@ -58,6 +59,10 @@ const productSchema = new mongoose.Schema(
     rating: { type: Number, default: 0, min: 0, max: 5 },
     numReviews: { type: Number, default: 0 },
     isFeatured: { type: Boolean, default: false },
+    todaysDeal: {
+      type: Boolean,
+      default: false,
+    },
     isFlashSale: { type: Boolean, default: false },
     flashSaleEndsAt: { type: Date },
     isActive: { type: Boolean, default: true },

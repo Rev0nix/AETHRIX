@@ -1,13 +1,24 @@
-import { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
-import { TbSearch, TbHeart, TbShoppingBag, TbMenu2, TbX } from 'react-icons/tb';
-import { useAuth } from '../../hooks/useAuth';
-import { useCart } from '../../hooks/useCart';
-import { useWishlist } from '../../hooks/useWishlist';
-import { productService } from '../../services/productService';
-import SearchDrawer from '../SearchDrawer/SearchDrawer';
-import { categories } from '../../data/staticContent';
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+
+import {
+  TbHeart,
+  TbShoppingBag,
+  TbMenu2,
+  TbX,
+  TbBell,
+  TbMapPin,
+} from "react-icons/tb";
+
+import { useAuth } from "../../hooks/useAuth";
+import { useCart } from "../../hooks/useCart";
+import { useWishlist } from "../../hooks/useWishlist";
+
+import SearchBar from "../SearchBar";
+import SearchDrawer from "../SearchDrawer/SearchDrawer";
+
+import { categories } from "../../data/staticContent";
 
 const NAV_LINKS = [
   { to: '/', label: 'Home' },
@@ -21,11 +32,19 @@ const Navbar = () => {
   const { user, isAuthenticated } = useAuth();
   const { itemCount } = useCart();
   const { wishlist } = useWishlist();
+
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [showCategories, setShowCategories] = useState(false);
-  const navigate = useNavigate();
+
+  const NAV_LINKS = [
+    { to: "/", label: "Home" },
+    { to: "/shop", label: "Shop" },
+    { to: "/about", label: "About" },
+    { to: "/contact", label: "Contact" },
+    { to: "/track-order", label: "Track Order" },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -39,12 +58,34 @@ const Navbar = () => {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass shadow-glow' : 'bg-transparent'
           }`}
       >
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 h-[70px] flex items-center justify-between">
-          <Link to="/" className="font-display text-2xl tracking-[0.3em] text-white">
-            AETHRIX
-          </Link>
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 h-[70px] flex items-center">
+          <div className="flex items-center gap-3">
 
-          <ul className="hidden lg:flex gap-9 list-none items-center">
+            <Link
+              to="/"
+              className="font-display text-2xl tracking-[0.3em] text-white"
+            >
+              AETHRIX
+            </Link>
+
+            <div className="hidden xl:flex items-center gap-1 text-white">
+              <TbMapPin size={20} />
+
+              <div className="leading-tight">
+                <p className="text-[12px] text-white/50">
+                  Deliver to
+                </p>
+
+                <p className="text-sm font-medium">
+                  Bengaluru
+                </p>
+
+              </div>
+            </div>
+
+          </div>
+
+          <ul className="hidden lg:flex ml-8 gap-8 list-none items-center">
 
             {NAV_LINKS.map((link) => (
               <li key={link.to}>
@@ -96,14 +137,15 @@ const Navbar = () => {
 
           </ul>
 
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => setSearchOpen(true)}
-              className="text-white/65 hover:text-white transition-colors text-lg"
-              title="Search"
-            >
-              <TbSearch />
-            </button>
+          <div className="flex items-center gap-8 ml-12">
+
+            <SearchBar />
+
+            <div className="relative cursor-pointer text-white/70 hover:text-white transition">
+              <TbBell size={22} />
+              <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-red-500"></span>
+            </div>
+
             <Link to="/profile?tab=wishlist" className="relative text-white/65 hover:text-white transition-colors text-lg">
               <TbHeart />
               {wishlist.length > 0 && (
@@ -112,6 +154,7 @@ const Navbar = () => {
                 </span>
               )}
             </Link>
+
             <Link to="/cart" className="relative text-white/65 hover:text-white transition-colors text-lg">
               <TbShoppingBag />
               {itemCount > 0 && (
@@ -120,15 +163,18 @@ const Navbar = () => {
                 </span>
               )}
             </Link>
+
             <Link
               to={isAuthenticated ? '/profile' : '/login'}
               className="hidden sm:block text-[11px] tracking-[0.15em] uppercase border border-white/15 hover:border-accent px-4 py-1.5 transition-colors"
             >
               {isAuthenticated ? user?.name?.split(' ')[0] : 'Sign In'}
             </Link>
+
             <button className="lg:hidden text-white text-xl" onClick={() => setMobileOpen(true)}>
               <TbMenu2 />
             </button>
+
           </div>
         </div>
       </nav>

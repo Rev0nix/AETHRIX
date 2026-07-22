@@ -87,7 +87,28 @@ const getFlashSaleProducts = asyncHandler(async (req, res) => {
     isActive: true,
     flashSaleEndsAt: { $gt: new Date() },
   }).limit(12);
-  res.json({ success: true, data: products });
+
+  res.json({
+    success: true,
+    data: products,
+  });
+});
+
+// @desc    Get Today's Deals
+// @route   GET /api/products/todays-deals
+// @access  Public
+const getTodaysDeals = asyncHandler(async (req, res) => {
+  const products = await Product.find({
+    todaysDeal: true,
+    isActive: true,
+  })
+    .limit(8)
+    .sort({ createdAt: -1 });
+
+  res.json({
+    success: true,
+    data: products,
+  });
 });
 
 // @desc    Search suggestions (instant search)
@@ -222,8 +243,49 @@ const uploadProductImages = asyncHandler(async (req, res) => {
 // @route   POST /api/products/fetch-amazon
 // @access  Private/Admin
 
-const fetchAmazonProduct = asyncHandler(async (req, res) => {
+const detectPlatform = (url) => {
+
+  const lower = url.toLowerCase();
+
+  if (lower.includes("amazon.")) return "amazon";
+
+  if (lower.includes("flipkart.")) return "flipkart";
+
+  if (lower.includes("myntra.")) return "myntra";
+
+  if (lower.includes("ajio.")) return "ajio";
+
+  if (lower.includes("apple.")) return "apple";
+
+  if (lower.includes("samsung.")) return "samsung";
+
+  if (lower.includes("croma.")) return "croma";
+
+  if (lower.includes("reliancedigital.")) return "reliance";
+
+  return "unknown";
+
+};
+
+const importProductFromUrl = asyncHandler(async (req, res) => {
   const { url } = req.body;
+
+  const platform = detectPlatform(url);
+
+  console.log("Platform:", platform);
+
+  if (platform !== "amazon") {
+
+    return res.status(400).json({
+
+      success: false,
+
+      message:
+        `${platform} import is coming soon.`
+
+    });
+
+  }
 
   try {
     const response = await axios.get(
@@ -270,11 +332,12 @@ module.exports = {
   getProductById,
   getFeaturedProducts,
   getFlashSaleProducts,
+  getTodaysDeals,
   getSearchSuggestions,
   getRelatedProducts,
   createProduct,
   updateProduct,
   deleteProduct,
   uploadProductImages,
-  fetchAmazonProduct
+  importProductFromUrl,
 };

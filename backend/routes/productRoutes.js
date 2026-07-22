@@ -11,7 +11,7 @@ const {
   updateProduct,
   deleteProduct,
   uploadProductImages,
-  fetchAmazonProduct
+  importProductFromUrl
 } = require('../controllers/productController');
 const { getProductReviews, createReview } = require('../controllers/reviewController');
 const { protect } = require('../middleware/authMiddleware');
@@ -22,7 +22,7 @@ const upload = require('../middleware/uploadMiddleware');
 router.get('/featured', getFeaturedProducts);
 router.get('/flash-sale', getFlashSaleProducts);
 router.get('/search-suggestions', getSearchSuggestions);
-router.post('/fetch-amazon', fetchAmazonProduct);
+router.post('/import-product', importProductFromUrl);
 
 router.route('/').get(getProducts).post(protect, admin, createProduct);
 

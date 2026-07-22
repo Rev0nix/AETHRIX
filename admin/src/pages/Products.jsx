@@ -11,9 +11,16 @@ const emptyForm = {
   compareAtPrice: '',
   stock: '',
   badge: '',
-  affiliateLink: '',
+
+  productUrl: '',
+
   rating: 0,
-  numReviews: 0
+  numReviews: 0,
+
+  isFeatured: false,
+  todaysDeal: false,
+  isFlashSale: false,
+  isActive: true,
 };
 
 const Products = () => {
@@ -24,16 +31,16 @@ const Products = () => {
   const [form, setForm] = useState(emptyForm);
   const [search, setSearch] = useState('');
   const [images, setImages] = useState([]);
-  const [amazonUrl, setAmazonUrl] = useState('');
+  const [productUrl, setProductUrl] = useState("");
 
   const load = () => {
     api.get('/products', { params: { limit: 100, keyword: search || undefined } }).then((r) => setProducts(r.data.data));
   };
 
-  const fetchAmazonDetails = async () => {
+  const importProductFromUrl = async () => {
     try {
       const res = await api.post('/products/fetch-amazon', {
-        url: amazonUrl,
+        url: productUrl,
       });
 
       setForm((f) => ({
@@ -41,7 +48,7 @@ const Products = () => {
         name: res.data.name,
         description: res.data.description,
         price: res.data.price,
-        affiliateLink: amazonUrl,
+        affiliateLink: productUrl,
         rating: res.data.rating,
         numReviews: res.data.numReviews,
       }));
@@ -73,6 +80,7 @@ const Products = () => {
 
   const openEdit = (p) => {
     setEditing(p);
+
     setForm({
       name: p.name,
       description: p.description,
@@ -81,8 +89,20 @@ const Products = () => {
       compareAtPrice: p.compareAtPrice || '',
       stock: p.stock,
       badge: p.badge || '',
-      affiliateLink: p.affiliateLink || '',
+
+      // Changed from affiliateLink
+      productUrl: p.productUrl || '',
+
+      rating: p.rating || 0,
+      numReviews: p.numReviews || 0,
+
+      // Feature Toggles
+      isFeatured: p.isFeatured ?? false,
+      todaysDeal: p.todaysDeal ?? false,
+      isFlashSale: p.isFlashSale ?? false,
+      isActive: p.isActive ?? true,
     });
+
     setShowForm(true);
   };
 
@@ -175,12 +195,30 @@ const Products = () => {
     }
   };
 
+  const bulkUpdate = async (updates) => {
+    if (selected.length === 0) return;
+
+    try {
+      await Promise.all(
+        selected.map((id) =>
+          api.patch(`/products/${id}`, updates)
+        )
+      );
+
+      setSelected([]);
+      load();
+    } catch (err) {
+      alert("Bulk update failed");
+      console.error(err);
+    }
+  };
+
   return (
     <div>
       <Topbar
         title="Products"
         action={
-          <div className="flex gap-3">
+          <div className="flex flex-wrap gap-3">
             {selected.length > 0 && (
               <button
                 onClick={deleteSelected}
@@ -188,6 +226,45 @@ const Products = () => {
               >
                 Delete Selected ({selected.length})
               </button>
+            )}
+
+            {selected.length > 0 && (
+              <>
+                <button
+                  onClick={() => bulkUpdate({ isFeatured: true })}
+                  className="bg-yellow-600 px-4 py-2 rounded text-xs font-semibold"
+                >
+                  ⭐ Feature
+                </button>
+
+                <button
+                  onClick={() => bulkUpdate({ todaysDeal: true })}
+                  className="bg-blue-600 px-4 py-2 rounded text-xs font-semibold"
+                >
+                  🎯 Deal
+                </button>
+
+                <button
+                  onClick={() => bulkUpdate({ isFlashSale: true })}
+                  className="bg-orange-600 px-4 py-2 rounded text-xs font-semibold"
+                >
+                  🔥 Flash
+                </button>
+
+                <button
+                  onClick={() => bulkUpdate({ isActive: false })}
+                  className="bg-gray-600 px-4 py-2 rounded text-xs font-semibold"
+                >
+                  🚫 Disable
+                </button>
+
+                <button
+                  onClick={() => bulkUpdate({ isActive: true })}
+                  className="bg-green-600 px-4 py-2 rounded text-xs font-semibold"
+                >
+                  ✅ Enable
+                </button>
+              </>
             )}
 
             <button
@@ -207,10 +284,46 @@ const Products = () => {
         className="bg-white/5 border border-white/10 px-4 py-2.5 text-sm mb-6 w-full max-w-sm outline-none focus:border-accent"
       />
 
-      <div className="bg-base-900 border border-white/5">
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4 mb-6">
+
+        <StatCard
+          title="Products"
+          value={products.length}
+        />
+
+        <StatCard
+          title="In Stock"
+          value={products.filter(p => p.stock > 20).length}
+        />
+
+        <StatCard
+          title="Low Stock"
+          value={products.filter(p => p.stock > 0 && p.stock <= 20).length}
+        />
+
+        <StatCard
+          title="Out of Stock"
+          value={products.filter(p => p.stock === 0).length}
+        />
+
+        <StatCard
+          title="Featured"
+          value={products.filter(p => p.isFeatured).length}
+        />
+
+        <StatCard
+          title="Flash Sale"
+          value={products.filter(p => p.isFlashSale).length}
+        />
+
+      </div>
+
+      <div className="bg-base-900 border border-white/5 rounded-xl p-4">
+
         <p className="text-white/40 mb-3">
           {products.length} Products
         </p>
+
         <ProductTable
           products={products}
           onEdit={openEdit}
@@ -219,6 +332,7 @@ const Products = () => {
           toggleSelect={toggleSelect}
           toggleSelectAll={toggleSelectAll}
         />
+
       </div>
 
       {showForm && (
@@ -226,18 +340,18 @@ const Products = () => {
           <form onClick={(e) => e.stopPropagation()} onSubmit={handleSubmit} className="bg-base-900 border border-white/10 p-8 w-full max-w-lg max-h-[85vh] overflow-y-auto">
             <h3 className="font-display text-2xl tracking-wider mb-6">{editing ? 'Edit Product' : 'New Product'}</h3>
 
-            <Field label="Amazon Product URL">
+            <Field label="Product URL">
               <div className="flex gap-2">
                 <input
-                  value={amazonUrl}
-                  onChange={(e) => setAmazonUrl(e.target.value)}
+                  value={productUrl}
+                  onChange={(e) => setProductUrl(e.target.value)}
                   className="input"
-                  placeholder="https://www.amazon.in/dp/..."
+                  placeholder="Paste Amazon / Flipkart / Myntra / Ajio URL..."
                 />
 
                 <button
                   type="button"
-                  onClick={fetchAmazonDetails}
+                  onClick={importProductFromUrl}
                   className="bg-accent px-4"
                 >
                   Fetch
@@ -253,7 +367,22 @@ const Products = () => {
             </Field>
             <Field label="Category">
               <select value={form.category} onChange={(e) => setForm((f) => ({ ...f, category: e.target.value }))} className="input">
-                {['electronics', 'fashion', 'smart-gadgets', 'home-decor', 'fitness', 'accessories'].map((c) => (
+                {[
+                  'electronics',
+                  'fashion',
+                  'home-kitchen',
+                  'beauty',
+                  'sports-fitness',
+                  'gaming',
+                  'books',
+                  'automotive',
+                  'baby-toys',
+                  'groceries',
+                  'pet-supplies',
+                  'office',
+                  'health',
+                  'jewellery'
+                ].map((c) => (
                   <option key={c} value={c}>{c}</option>
                 ))}
               </select>
@@ -279,10 +408,69 @@ const Products = () => {
                 </select>
               </Field>
             </div>
-            <Field label="Affiliate Link">
+            <div className="grid grid-cols-2 gap-4 mb-4">
+
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={form.isFeatured}
+                  onChange={(e) =>
+                    setForm(f => ({
+                      ...f,
+                      isFeatured: e.target.checked
+                    }))
+                  }
+                />
+                Featured Product
+              </label>
+
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={form.todaysDeal}
+                  onChange={(e) =>
+                    setForm(f => ({
+                      ...f,
+                      todaysDeal: e.target.checked
+                    }))
+                  }
+                />
+                Today's Deal
+              </label>
+
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={form.isFlashSale}
+                  onChange={(e) =>
+                    setForm(f => ({
+                      ...f,
+                      isFlashSale: e.target.checked
+                    }))
+                  }
+                />
+                Flash Sale
+              </label>
+
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={form.isActive}
+                  onChange={(e) =>
+                    setForm(f => ({
+                      ...f,
+                      isActive: e.target.checked
+                    }))
+                  }
+                />
+                Active
+              </label>
+
+            </div>
+            <Field label="Product URL">
               <input
                 type="text"
-                value={form.affiliateLink}
+                value={form.productUrl}
                 onChange={(e) =>
                   setForm((f) => ({
                     ...f,
@@ -332,6 +520,18 @@ const Field = ({ label, children }) => (
   <div className="mb-4">
     <label className="block text-[10px] tracking-[0.2em] uppercase text-white/40 mb-2">{label}</label>
     {children}
+  </div>
+);
+
+const StatCard = ({ title, value }) => (
+  <div className="rounded-xl border border-white/10 bg-white/5 p-4 shadow-sm">
+    <p className="text-xs uppercase tracking-wider text-white/50">
+      {title}
+    </p>
+
+    <h2 className="mt-2 text-3xl font-bold text-white">
+      {value}
+    </h2>
   </div>
 );
 
