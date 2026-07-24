@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import logo from "../../assets/logo.png";
 
 import {
   TbHeart,
@@ -38,14 +39,6 @@ const Navbar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [showCategories, setShowCategories] = useState(false);
 
-  const NAV_LINKS = [
-    { to: "/", label: "Home" },
-    { to: "/shop", label: "Shop" },
-    { to: "/about", label: "About" },
-    { to: "/contact", label: "Contact" },
-    { to: "/track-order", label: "Track Order" },
-  ];
-
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', onScroll);
@@ -55,37 +48,32 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass shadow-glow' : 'bg-transparent'
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass shadow-lg' : 'bg-transparent'
           }`}
       >
         <div className="max-w-7xl mx-auto px-6 lg:px-10 h-[70px] flex items-center">
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-14">
 
-            <Link
-              to="/"
-              className="font-display text-2xl tracking-[0.3em] text-white"
-            >
-              AETHRIX
+            <Link to="/" className="flex items-center gap-3">
+              <img
+                src={logo}
+                alt="AETHRIX Logo"
+                className="h-10 w-auto"
+              />
+
+              <span className="font-heading text-xl tracking-[0.35em] text-brand-gold font-bold">
+                AETHRIX
+              </span>
             </Link>
 
             <div className="hidden xl:flex items-center gap-1 text-white">
               <TbMapPin size={20} />
 
-              <div className="leading-tight">
-                <p className="text-[12px] text-white/50">
-                  Deliver to
-                </p>
-
-                <p className="text-sm font-medium">
-                  Bengaluru
-                </p>
-
-              </div>
             </div>
 
           </div>
 
-          <ul className="hidden lg:flex ml-8 gap-8 list-none items-center">
+          <ul className="hidden lg:flex ml-8 gap-7 list-none items-center">
 
             {NAV_LINKS.map((link) => (
               <li key={link.to}>
@@ -103,7 +91,7 @@ const Navbar = () => {
               onMouseEnter={() => setShowCategories(true)}
               onMouseLeave={() => setShowCategories(false)}
             >
-              <button className="text-xs tracking-[0.2em] uppercase text-white/55 hover:text-white">
+              <button className="text-xs tracking-[0.2em] uppercase text-white/70 hover:text-brand-gold transition-all duration-300">
                 Categories ▼
               </button>
 
@@ -149,7 +137,7 @@ const Navbar = () => {
             <Link to="/profile?tab=wishlist" className="relative text-white/65 hover:text-white transition-colors text-lg">
               <TbHeart />
               {wishlist.length > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-accent text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                <span className="absolute -top-1.5 -right-1.5 bg-brand-gold text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
                   {wishlist.length}
                 </span>
               )}
@@ -158,7 +146,7 @@ const Navbar = () => {
             <Link to="/cart" className="relative text-white/65 hover:text-white transition-colors text-lg">
               <TbShoppingBag />
               {itemCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-accent text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                <span className="absolute -top-1.5 -right-1.5 bg-brand-gold text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
                   {itemCount}
                 </span>
               )}
@@ -166,7 +154,7 @@ const Navbar = () => {
 
             <Link
               to={isAuthenticated ? '/profile' : '/login'}
-              className="hidden sm:block text-[11px] tracking-[0.15em] uppercase border border-white/15 hover:border-accent px-4 py-1.5 transition-colors"
+              className="hidden sm:block text-[11px] tracking-[0.15em] uppercase border border-white/15 hover:border-brand-gold px-4 py-1.5 transition-colors"
             >
               {isAuthenticated ? user?.name?.split(' ')[0] : 'Sign In'}
             </Link>
@@ -205,7 +193,7 @@ const Navbar = () => {
               <Link
                 to={isAuthenticated ? '/profile' : '/login'}
                 onClick={() => setMobileOpen(false)}
-                className="font-display text-3xl tracking-wider text-accent-glow"
+                className="font-display text-3xl tracking-wider text-brand-gold"
               >
                 {isAuthenticated ? 'My Account' : 'Sign In'}
               </Link>

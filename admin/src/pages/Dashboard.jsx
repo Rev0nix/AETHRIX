@@ -53,13 +53,22 @@ const Dashboard = () => {
             </tr>
           </thead>
           <tbody>
-            {recentOrders.map((o) => (
-              <tr key={o._id} className="border-b border-white/[0.03]">
-                <td className="py-3 px-6">{o.orderNumber}</td>
-                <td className="py-3 px-6">{o.user?.name}</td>
-                <td className="py-3 px-6">₹{o.totalPrice?.toLocaleString('en-IN')}</td>
+            {recentOrders?.map((order) => (
+              <tr key={order._id} className="border-b border-white/[0.03]">
+                <td className="py-3 px-6">{order.orderNumber}</td>
+
                 <td className="py-3 px-6">
-                  <span className="text-[10px] uppercase bg-accent/10 text-accent-glow px-2.5 py-1 rounded">{o.status}</span>
+                  {order.user?.name}
+                </td>
+
+                <td className="py-3 px-6">
+                  ₹{order.totalPrice?.toLocaleString("en-IN")}
+                </td>
+
+                <td className="py-3 px-6">
+                  <span className="text-[10px] uppercase bg-accent/10 text-accent-glow px-2.5 py-1 rounded">
+                    {order.status.replaceAll("_", " ")}
+                  </span>
                 </td>
               </tr>
             ))}

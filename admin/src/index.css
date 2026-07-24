@@ -7,6 +7,81 @@ body {
   background: #05070d;
 }
 
-::-webkit-scrollbar { width: 8px; }
-::-webkit-scrollbar-track { background: #0a0e1a; }
-::-webkit-scrollbar-thumb { background: #222b46; border-radius: 4px; }
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0e1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #222b46;
+  border-radius: 4px;
+}
+
+@media print {
+
+  /* Hide Admin UI */
+  aside,
+  nav,
+  header,
+  button {
+    display: none !important;
+  }
+
+  /* Hide sidebar */
+  .sidebar {
+    display: none !important;
+  }
+
+  /* Use full page width */
+  main {
+    margin: 0 !important;
+    padding: 0 !important;
+    width: 100% !important;
+  }
+
+  body {
+    background: white !important;
+  }
+
+}
+
+@media print {
+
+  body {
+    background: white !important;
+  }
+
+  .no-print {
+    display: none !important;
+  }
+
+  .invoice-page {
+    padding: 0 !important;
+    background: white !important;
+  }
+
+  .invoice {
+    box-shadow: none !important;
+    border: none !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 24px !important;
+  }
+
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+
+  table {
+    page-break-inside: avoid;
+  }
+
+  tr {
+    page-break-inside: avoid;
+  }
+}

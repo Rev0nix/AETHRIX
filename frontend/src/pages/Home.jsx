@@ -9,6 +9,7 @@ import LiveStats from '../components/LiveStats/LiveStats';
 import VideoBanner from '../components/VideoBanner/VideoBanner';
 import Testimonials from '../components/Testimonials/Testimonials';
 import Newsletter from '../components/Newsletter/Newsletter';
+import FeaturedCategories from "../components/FeaturedCategories/FeaturedCategories";
 
 const Home = () => {
   return (
@@ -16,6 +17,7 @@ const Home = () => {
       <Hero />
       <Marquee />
       <TrustedBrands />
+      <FeaturedCategories />
       <FeaturedProducts />
       <CategorySection />
       <FlashSale />

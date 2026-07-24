@@ -94,7 +94,7 @@ const Shop = () => {
             value={minPrice}
             onChange={(e) => setMinPrice(e.target.value)}
             onBlur={() => updateParam('minPrice', minPrice)}
-            className="w-24 bg-white/5 border border-white/10 text-xs px-3 py-2 outline-none focus:border-accent"
+            className="w-24 bg-white/5 border border-white/10 text-xs px-3 py-2 outline-none focus:border-brand-gold"
           />
           <input
             type="number"
@@ -102,12 +102,12 @@ const Shop = () => {
             value={maxPrice}
             onChange={(e) => setMaxPrice(e.target.value)}
             onBlur={() => updateParam('maxPrice', maxPrice)}
-            className="w-24 bg-white/5 border border-white/10 text-xs px-3 py-2 outline-none focus:border-accent"
+            className="w-24 bg-white/5 border border-white/10 text-xs px-3 py-2 outline-none focus:border-brand-gold"
           />
           <select
             value={sort}
             onChange={(e) => updateParam('sort', e.target.value)}
-            className="bg-white/5 border border-white/10 text-xs px-3 py-2.5 outline-none focus:border-accent"
+            className="bg-white/5 border border-white/10 text-xs px-3 py-2.5 outline-none focus:border-brand-gold"
           >
             {SORT_OPTIONS.map((o) => (
               <option key={o.value} value={o.value} className="bg-base-900">
@@ -121,7 +121,7 @@ const Shop = () => {
       <div className="px-6 lg:px-10 py-10 flex gap-8">
         <aside className="hidden lg:block w-72 shrink-0">
 
-          <div className="sticky top-24 rounded-2xl border border-white/10 bg-white/5 p-6">
+          <div className="sticky top-24 rounded-2xl border border-white/10 bg-[#111111] p-6">
 
             <h2 className="text-lg font-semibold mb-6">
               Filters
@@ -132,7 +132,7 @@ const Shop = () => {
               <button
                 onClick={() => updateParam("category", "")}
                 className={`block w-full text-left px-3 py-2 rounded-lg ${!category
-                  ? "bg-accent text-white"
+                  ? "bg-brand-gold text-white"
                   : "hover:bg-white/10"
                   }`}
               >
@@ -144,7 +144,7 @@ const Shop = () => {
                   key={c.slug}
                   onClick={() => updateParam("category", c.slug)}
                   className={`block w-full text-left px-3 py-2 rounded-lg ${category === c.slug
-                    ? "bg-accent text-white"
+                    ? "bg-brand-gold text-white"
                     : "hover:bg-white/10"
                     }`}
                 >
@@ -158,68 +158,69 @@ const Shop = () => {
 
         </aside>
 
-        <div className="flex-1"></div>
 
+        <div className="flex-1">
 
-        {loading ? (
-          <Loader />
-        ) : !products || products.length === 0 ? (
-          <div className="text-center py-20 text-white/35">
-            <p className="text-sm">No products match your filters.</p>
-          </div>
-        ) : (
-          <>
-            <p className="text-xs text-white/30 mb-6">{total} products found</p>
-            <div className="flex items-center justify-between mb-6">
-
-              <div>
-                <h2 className="text-xl font-semibold text-white">
-                  Showing {products.length} of {total} Products
-                </h2>
-
-                <p className="text-sm text-white/50 mt-1">
-                  Explore premium collections curated for you.
-                </p>
-              </div>
-
-              <div className="flex items-center gap-3">
-
-                <button className="w-10 h-10 rounded-lg border border-white/10 hover:border-accent transition">
-                  ⬜
-                </button>
-
-                <button className="w-10 h-10 rounded-lg border border-white/10 hover:border-accent transition">
-                  ☰
-                </button>
-
-              </div>
-
+          {loading ? (
+            <Loader />
+          ) : !products || products.length === 0 ? (
+            <div className="text-center py-20 text-white/35">
+              <p className="text-sm">No products match your filters.</p>
             </div>
-            <motion.div
-              initial="hidden"
-              animate="show"
-              variants={{ hidden: {}, show: { transition: { staggerChildren: 0.05 } } }}
-              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"
-            >
-              {products.map((p) => (
-                <motion.div key={p._id} variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}>
-                  <ProductCard product={p} />
-                </motion.div>
-              ))}
-            </motion.div>
+          ) : (
+            <>
+              <p className="text-xs text-white/30 mb-6">{total} products found</p>
+              <div className="flex items-center justify-between mb-6">
 
-            {products.length < total && (
-              <div className="flex justify-center mt-12">
-                <button
-                  onClick={() => setLimit(prev => prev + 12)}
-                  className="px-6 py-3 border border-white/15 hover:border-white/40"
-                >
-                  Load More
-                </button>
+                <div>
+                  <h2 className="text-xl font-semibold text-white">
+                    Showing {products.length} of {total} Products
+                  </h2>
+
+                  <p className="text-sm text-white/50 mt-1">
+                    Explore premium collections curated for you.
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-3">
+
+                  <button className="w-10 h-10 rounded-lg border border-white/10 hover:border-brand-gold transition">
+                    ⬜
+                  </button>
+
+                  <button className="w-10 h-10 rounded-lg border border-white/10 hover:border-brand-gold transition">
+                    ☰
+                  </button>
+
+                </div>
+
               </div>
-            )}
-          </>
-        )}
+              <motion.div
+                initial="hidden"
+                animate="show"
+                variants={{ hidden: {}, show: { transition: { staggerChildren: 0.05 } } }}
+                className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"
+              >
+                {products.map((p) => (
+                  <motion.div key={p._id} variants={{ hidden: { opacity: 0, y: 20 }, show: { opacity: 1, y: 0 } }}>
+                    <ProductCard product={p} />
+                  </motion.div>
+                ))}
+              </motion.div>
+
+              {products.length < total && (
+                <div className="flex justify-center mt-12">
+                  <button
+                    onClick={() => setLimit(prev => prev + 12)}
+                    className="px-8 py-3 rounded-xl bg-brand-gold text-black font-semibold hover:brightness-95 transition"
+                  >
+                    Load More
+                  </button>
+                </div>
+              )}
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

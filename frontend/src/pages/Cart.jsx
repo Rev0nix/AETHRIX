@@ -26,11 +26,21 @@ const Cart = () => {
         <div>
           {cart.map((item) => (
             <div key={item.key} className="flex gap-6 py-6 border-b border-white/10">
-              <div className="w-[90px] h-[110px] bg-base-700 flex-shrink-0" />
+              <div className="w-[90px] h-[110px] rounded-xl overflow-hidden bg-[#111111] flex-shrink-0">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
               <div className="flex-1">
                 <div className="font-medium mb-1">{item.name}</div>
+                <p className="text-brand-gold font-semibold mt-2">
+                  ₹{item.price.toLocaleString("en-IN")}
+                </p>
                 {item.size && <div className="text-sm text-white/35 mb-3">Size: {item.size}</div>}
                 <div className="flex items-center gap-3 mb-2">
+
                   <div className="flex items-center border border-white/15">
                     <button onClick={() => updateQty(item.key, item.qty - 1)} className="w-9 h-9 flex items-center justify-center hover:bg-white/10">
                       <TbMinus size={13} />
@@ -50,7 +60,7 @@ const Cart = () => {
           ))}
         </div>
 
-        <div className="bg-base-900 border border-white/10 p-7 h-fit">
+        <div className="bg-[#111111] border border-white/10 p-7 h-fit">
           <div className="text-[10px] tracking-[0.25em] uppercase text-white/40 font-bold mb-5">Order Summary</div>
           <Row label="Subtotal" value={`₹${itemsPrice.toLocaleString('en-IN')}`} />
           <Row label="Shipping" value={shippingPrice === 0 ? 'Free' : `₹${shippingPrice}`} />

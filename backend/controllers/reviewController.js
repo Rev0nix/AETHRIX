@@ -25,7 +25,10 @@ const createReview = asyncHandler(async (req, res) => {
   const verifiedPurchase = await Order.exists({
     user: req.user._id,
     'items.product': req.params.productId,
-    isPaid: true,
+    $or: [
+      { paymentStatus: 'paid' },
+      { paymentStatus: { $exists: false }, isPaid: true },
+    ],
   });
 
   const review = await Review.create({

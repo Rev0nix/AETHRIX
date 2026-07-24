@@ -104,7 +104,7 @@ const Product = () => {
                 key={i}
                 onClick={() => setActiveImg(i)}
                 className={`w-20 h-20 rounded-xl overflow-hidden border-2 transition-all ${i === activeImg
-                  ? "border-accent"
+                  ? "border-brand-gold"
                   : "border-white/10 hover:border-white/40"
                   }`}
               >
@@ -123,7 +123,7 @@ const Product = () => {
 
           <div className="flex-1">
 
-            <div className="aspect-[4/5] rounded-3xl overflow-hidden bg-base-700">
+            <div className="aspect-[4/5] rounded-3xl overflow-hidden bg-[#111111]">
 
               {product.images?.[activeImg]?.url ? (
 
@@ -154,7 +154,7 @@ const Product = () => {
                   key={i}
                   onClick={() => setActiveImg(i)}
                   className={`w-16 h-16 rounded-xl overflow-hidden border ${i === activeImg
-                    ? "border-accent"
+                    ? "border-brand-gold"
                     : "border-white/10"
                     }`}
                 >
@@ -179,10 +179,10 @@ const Product = () => {
               {product.badge}
             </span>
           )}
-          <h1 className="font-display text-4xl lg:text-5xl tracking-wide mb-2">{product.name}</h1>
-          <div className="text-[11px] text-accent-glow tracking-widest uppercase mb-4">{product.category?.replace('-', ' ')}</div>
+          <h1 className="font-heading text-5xl font-bold text-white mb-3">{product.name}</h1>
+          <div className="text-[11px] text-brand-gold tracking-widest uppercase mb-4">{product.category?.replace('-', ' ')}</div>
 
-          <div className="text-2xl font-bold mb-2">
+          <div className="text-4xl font-bold text-brand-gold mb-4">
             ₹{product.price.toLocaleString('en-IN')}
             {product.compareAtPrice > product.price && (
               <>
@@ -215,7 +215,7 @@ const Product = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-2 mb-6 text-accent-glow text-sm">
+          <div className="flex items-center gap-2 mb-6 text-brand-gold text-sm">
             {Array.from({ length: 5 }).map((_, i) => (
               <TbStarFilled key={i} className={i < Math.round(product.rating || 0) ? '' : 'opacity-20'} />
             ))}
@@ -230,7 +230,7 @@ const Product = () => {
             <>
               <div className="flex justify-between items-center mb-3">
                 <span className="text-[10px] tracking-[0.25em] uppercase text-white/40">Select Size</span>
-                <button onClick={() => setSizeGuideOpen(true)} className="text-[10px] text-accent-glow underline">
+                <button onClick={() => setSizeGuideOpen(true)} className="text-[10px] text-brand-gold underline">
                   Size Guide
                 </button>
               </div>
@@ -268,23 +268,23 @@ const Product = () => {
 
           <button
             onClick={() => toggleWishlist(product)}
-            className={`w-full text-xs tracking-widest uppercase py-3 border transition-colors mb-7 ${wished ? 'border-accent text-accent-glow' : 'border-white/15 text-white/50 hover:border-white/40'
+            className={`w-full text-xs tracking-widest uppercase py-3 border transition-colors mb-7 ${wished ? 'border-brand-gold text-brand-gold' : 'border-white/15 text-white/50 hover:border-white/40'
               }`}
           >
             {wished ? '♥ Wishlisted' : '♡ Add to Wishlist'}
           </button>
 
           <div className="flex items-center gap-3 py-3 border-b border-white/5 text-sm text-white/45">
-            <TbTruckDelivery className="text-accent-glow" /> Free delivery across India · Est. 3–5 days
+            <TbTruckDelivery className="text-brand-gold" /> Free delivery across India · Est. 3–5 days
           </div>
           <div className="flex items-center gap-3 py-3 border-b border-white/5 text-sm text-white/45">
-            <TbRotate className="text-accent-glow" /> 7-day easy returns
+            <TbRotate className="text-brand-gold" /> 7-day easy returns
           </div>
           <div className="flex items-center gap-3 py-3 border-b border-white/5 text-sm text-white/45">
-            <TbShieldCheck className="text-accent-glow" /> 100% authentic, quality checked
+            <TbShieldCheck className="text-brand-gold" /> 100% authentic, quality checked
           </div>
           <div className="flex items-start gap-3 py-3 text-sm text-white/45">
-            <TbRuler className="text-accent-glow mt-0.5" /> {product.description}
+            <TbRuler className="text-brand-gold mt-0.5" /> {product.description}
           </div>
         </div>
       </div>
@@ -304,7 +304,7 @@ const Product = () => {
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={`pb-4 capitalize transition ${activeTab === tab
-                ? "border-b-2 border-accent text-white"
+                ? "border-b-2 border-brand-gold text-white"
                 : "text-white/40 hover:text-white"
                 }`}
             >
@@ -321,7 +321,7 @@ const Product = () => {
 
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
 
-          <div className="rounded-2xl bg-white/5 border border-white/10 p-8">
+          <div className="rounded-2xl bg-[#111111] border border-white/10 p-8">
 
             <h2 className="text-2xl font-semibold mb-6">
               Product Description
@@ -341,7 +341,7 @@ const Product = () => {
 
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
 
-          <div className="rounded-2xl bg-white/5 border border-white/10 overflow-hidden">
+          <div className="rounded-2xl bg-[#111111] border border-white/10 overflow-hidden">
 
             <div className="grid grid-cols-2">
 
@@ -381,7 +381,7 @@ const Product = () => {
 
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
 
-          <div className="rounded-2xl bg-white/5 border border-white/10 p-8 space-y-4">
+          <div className="rounded-2xl bg-[#111111] border border-white/10 p-8 space-y-4">
 
             <p>🚚 Free Delivery Across India</p>
 
@@ -407,7 +407,7 @@ const Product = () => {
               <div className="flex gap-1 mb-4 text-xl">
                 {[1, 2, 3, 4, 5].map((n) => (
                   <button key={n} type="button" onClick={() => setReviewForm((f) => ({ ...f, rating: n }))}>
-                    <TbStarFilled className={n <= reviewForm.rating ? 'text-accent-glow' : 'text-white/15'} />
+                    <TbStarFilled className={n <= reviewForm.rating ? 'text-brand-gold' : 'text-white/15'} />
                   </button>
                 ))}
               </div>
@@ -415,7 +415,7 @@ const Product = () => {
                 value={reviewForm.title}
                 onChange={(e) => setReviewForm((f) => ({ ...f, title: e.target.value }))}
                 placeholder="Review title"
-                className="w-full bg-white/5 border border-white/10 px-4 py-2.5 text-sm mb-3 outline-none focus:border-accent"
+                className="w-full bg-[#111111] border border-white/10 px-4 py-2.5 text-sm mb-3 outline-none focus:border-brand-gold"
               />
               <textarea
                 required
@@ -423,7 +423,7 @@ const Product = () => {
                 onChange={(e) => setReviewForm((f) => ({ ...f, comment: e.target.value }))}
                 placeholder="Share your experience..."
                 rows={3}
-                className="w-full bg-white/5 border border-white/10 px-4 py-2.5 text-sm mb-3 outline-none focus:border-accent resize-none"
+                className="w-full bg-[#111111] border border-white/10 px-4 py-2.5 text-sm mb-3 outline-none focus:border-brand-gold resize-none"
               />
               <button type="submit" className="btn-primary text-[10px] px-6 py-2.5">
                 Submit Review
@@ -439,7 +439,7 @@ const Product = () => {
                     <TbStarFilled
                       key={i}
                       className={i < Math.round(product.rating || 0)
-                        ? "text-accent-glow"
+                        ? "text-brand-gold"
                         : "text-white/15"}
                     />
                   ))}
@@ -462,7 +462,7 @@ const Product = () => {
                     {Array.from({ length: 5 }).map((_, i) => (
                       <TbStarFilled
                         key={i}
-                        className={`text-sm ${i < r.rating ? "text-accent-glow" : "text-white/15"
+                        className={`text-sm ${i < r.rating ? "text-brand-gold" : "text-white/15"
                           }`}
                       />
                     ))}
@@ -566,7 +566,7 @@ const Product = () => {
       {/* Related Products */}
       {related.length > 0 && (
         <div className="px-6 lg:px-10 py-16 border-t border-white/5">
-          <h2 className="font-display text-3xl tracking-wider mb-8 text-center">You May Also Like</h2>
+          <h2 className="font-display text-3xl tracking-wider mb-8 text-center">Recommended For You</h2>
           <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-5">
             {related.map((p) => (
               <ProductCard key={p._id} product={p} />
@@ -596,7 +596,7 @@ const Product = () => {
                   prev === 0 ? product.images.length - 1 : prev - 1
                 )
               }
-              className="absolute left-6 text-5xl text-white hover:text-accent"
+              className="absolute left-6 text-5xl text-white hover:text-brand-gold"
             >
               ❮
             </button>
@@ -617,7 +617,7 @@ const Product = () => {
                   prev === product.images.length - 1 ? 0 : prev + 1
                 )
               }
-              className="absolute right-6 text-5xl text-white hover:text-accent"
+              className="absolute right-6 text-5xl text-white hover:text-brand-gold"
             >
               ❯
             </button>

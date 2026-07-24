@@ -12,6 +12,9 @@
     "dev": "concurrently -n API,WEB,ADMIN -c blue,green,magenta \"npm:dev:backend\" \"npm:dev:frontend\" \"npm:dev:admin\""
   },
   "devDependencies": {
-    "concurrently": "^8.2.2"
+    "autoprefixer": "^10.5.4",
+    "concurrently": "^8.2.2",
+    "postcss": "^8.5.22",
+    "tailwindcss": "^4.3.3"
   }
 }

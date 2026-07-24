@@ -104,7 +104,7 @@ const Checkout = () => {
         }
       },
       prefill: { name: `${form.firstName} ${form.lastName}`, email: form.email, contact: form.phone },
-      theme: { color: '#3b82f6' },
+      theme: { color: '#D4AF37' },
     };
 
     const rzp = new window.Razorpay(options);
@@ -125,7 +125,7 @@ const Checkout = () => {
   };
 
   if (cart.length === 0) {
-    return <div className="text-center py-32 text-white/40">Your cart is empty. <a href="/shop" className="text-accent-glow underline">Go shopping</a></div>;
+    return <div className="text-center py-32 text-white/40">Your cart is empty. <a href="/shop" className="text-brand-gold underline">Go shopping</a></div>;
   }
 
   return (
@@ -134,7 +134,25 @@ const Checkout = () => {
         <div className="eyebrow mb-2">✦ Secure Checkout</div>
         <h1 className="font-display text-5xl tracking-wider mb-8">CHECKOUT</h1>
 
-        <div className="text-[10px] tracking-[0.25em] uppercase text-accent-glow font-bold mb-5">Shipping Information</div>
+        <div className="flex items-center gap-3 mb-10 text-sm">
+          <div className="bg-brand-gold text-black px-4 py-2 rounded-full font-semibold">
+            ✓ Cart
+          </div>
+
+          <span className="text-white/30">→</span>
+
+          <div className="bg-brand-gold text-black px-4 py-2 rounded-full font-semibold">
+            ✓ Checkout
+          </div>
+
+          <span className="text-white/30">→</span>
+
+          <div className="bg-[#111111] border border-white/10 px-4 py-2 rounded-full text-white/50">
+            Complete
+          </div>
+        </div>
+
+        <div className="text-[10px] tracking-[0.25em] uppercase text-brand-gold font-bold mb-5">Shipping Information</div>
         <div className="grid grid-cols-2 gap-4 mb-4">
           <Input label="First Name" name="firstName" value={form.firstName} onChange={handleChange} required />
           <Input label="Last Name" name="lastName" value={form.lastName} onChange={handleChange} required />
@@ -148,12 +166,12 @@ const Checkout = () => {
           <Input label="Pincode" name="pincode" value={form.pincode} onChange={handleChange} required />
         </div>
 
-        <div className="text-[10px] tracking-[0.25em] uppercase text-accent-glow font-bold mt-8 mb-4">Payment Method</div>
+        <div className="text-[10px] tracking-[0.25em] uppercase text-brand-gold font-bold mt-8 mb-4">Payment Method</div>
         <div className="flex gap-3 mb-6">
           <button
             type="button"
             onClick={() => setPaymentMethod('razorpay')}
-            className={`flex-1 border p-4 text-left text-sm transition-colors ${paymentMethod === 'razorpay' ? 'border-accent bg-accent/10' : 'border-white/10'}`}
+            className={`flex-1 border p-4 text-left text-sm transition-colors ${paymentMethod === 'razorpay' ? 'border-brand-gold bg-brand-gold/10' : 'border-white/10'}`}
           >
             <div className="font-semibold">Razorpay</div>
             <div className="text-xs text-white/40">UPI · Cards · Net Banking · Wallets</div>
@@ -161,7 +179,7 @@ const Checkout = () => {
           <button
             type="button"
             onClick={() => setPaymentMethod('cod')}
-            className={`flex-1 border p-4 text-left text-sm transition-colors ${paymentMethod === 'cod' ? 'border-accent bg-accent/10' : 'border-white/10'}`}
+            className={`flex-1 border p-4 text-left text-sm transition-colors ${paymentMethod === 'cod' ? 'border-brand-gold bg-brand-gold/10' : 'border-white/10'}`}
           >
             <div className="font-semibold">Cash on Delivery</div>
             <div className="text-xs text-white/40">Pay when it arrives</div>
@@ -171,9 +189,12 @@ const Checkout = () => {
         <button type="submit" disabled={processing} className="btn-primary w-full disabled:opacity-50">
           {processing ? 'Processing...' : paymentMethod === 'cod' ? 'Place Order →' : 'Pay Now with Razorpay →'}
         </button>
+        <p className="text-center text-xs text-white/40 mt-4">
+          🔒 Your payment is encrypted and secured by Razorpay.
+        </p>
       </form>
 
-      <div className="bg-base-900 border border-white/10 p-7 h-fit sticky top-24">
+      <div className="bg-[#111111] rounded-2xl shadow-xl border border-white/10 p-7 h-fit sticky top-24">
         <div className="text-[10px] tracking-[0.25em] uppercase text-white/40 font-bold mb-5">Order Summary</div>
         {cart.map((item) => (
           <div key={item.key} className="flex justify-between text-sm py-2 border-b border-white/5">
@@ -189,13 +210,13 @@ const Checkout = () => {
             value={coupon}
             onChange={(e) => setCoupon(e.target.value)}
             placeholder="Coupon code"
-            className="flex-1 bg-white/5 border border-white/10 px-3 py-2 text-xs outline-none focus:border-accent"
+            className="flex-1 bg-white/5 border border-white/10 px-3 py-2 text-xs outline-none focus:border-brand-gold"
           />
           <button type="button" onClick={handleApplyCoupon} className="bg-white/10 hover:bg-white/15 px-4 text-xs uppercase tracking-wider">
             Apply
           </button>
         </div>
-        {couponMsg && <p className="text-xs text-accent-glow mb-3">{couponMsg}</p>}
+        {couponMsg && <p className="text-xs text-brand-gold mb-3">{couponMsg}</p>}
 
         <Row label="Subtotal" value={`₹${itemsPrice.toLocaleString('en-IN')}`} />
         <Row label="Shipping" value={shippingPrice === 0 ? 'Free' : `₹${shippingPrice}`} />
@@ -209,7 +230,7 @@ const Checkout = () => {
 const Input = ({ label, ...props }) => (
   <div className="mb-4">
     <label className="block text-[10px] tracking-[0.2em] uppercase text-white/40 font-semibold mb-2">{label}</label>
-    <input {...props} className="w-full bg-white/5 border border-white/10 px-4 py-3 text-sm outline-none focus:border-accent" />
+    <input {...props} className="w-full bg-white/5 border border-white/10 px-4 py-3 text-sm outline-none focus:border-brand-gold" />
   </div>
 );
 

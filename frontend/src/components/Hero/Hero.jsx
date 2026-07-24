@@ -13,13 +13,13 @@ const Hero = () => {
             'repeating-linear-gradient(0deg,#fff,#fff 1px,transparent 1px,transparent 64px),repeating-linear-gradient(90deg,#fff,#fff 1px,transparent 1px,transparent 64px)',
         }}
       />
-      <div className="absolute w-[600px] h-[600px] rounded-full bg-accent/10 blur-[120px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+      <div className="absolute w-[600px] h-[600px] rounded-full bg-brand-gold/10 blur-[120px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
 
       {/* Floating shapes */}
-      <div className="absolute w-24 h-24 border border-accent/20 top-[18%] left-[7%] animate-floatY" />
-      <div className="absolute w-14 h-14 border border-accent/20 top-[62%] left-[4%] animate-floatY [animation-delay:2.2s]" />
-      <div className="absolute w-16 h-16 border border-accent/20 top-[22%] right-[7%] animate-floatY [animation-delay:1.1s]" />
-      <div className="absolute w-10 h-10 border border-accent/20 bottom-[28%] right-[5%] animate-floatY [animation-delay:3.3s]" />
+      <div className="absolute w-24 h-24 border border-brand-gold/20 top-[18%] left-[7%] animate-floatY" />
+      <div className="absolute w-14 h-14 border border-brand-gold/20 top-[62%] left-[4%] animate-floatY [animation-delay:2.2s]" />
+      <div className="absolute w-16 h-16 border border-brand-gold/20 top-[22%] right-[7%] animate-floatY [animation-delay:1.1s]" />
+      <div className="absolute w-10 h-10 border border-brand-gold/20 bottom-[28%] right-[5%] animate-floatY [animation-delay:3.3s]" />
 
       <motion.div
         initial={{ opacity: 0, y: 36 }}
@@ -28,11 +28,11 @@ const Hero = () => {
         className="relative z-10 text-center px-6"
       >
         <div className="eyebrow mb-6">✦</div>
-        <h1 className="font-display text-[100px] md:text-[180px] leading-[0.88] tracking-[0.1em] bg-gradient-to-b from-white via-white to-white/25 bg-clip-text text-transparent">
+        <h1 className="font-heading text-[100px] md:text-[180px] leading-[0.88] tracking-[0.1em] bg-gradient-to-b from-white via-white to-white/25 bg-clip-text text-transparent">
           AETHRIX
         </h1>
-        <p className="font-serif italic text-lg md:text-2xl text-white/50 tracking-wide mt-3 mb-5">
-          Everything Premium, In One Place
+        <p className="font-body italic text-lg md:text-2xl text-white/50 tracking-wide mt-3 mb-5">
+          Luxury Redefined
         </p>
         <p className="text-sm text-white/35 max-w-md mx-auto leading-7 mb-12">
           ✦Curated for those who expect more✦
@@ -42,7 +42,7 @@ const Hero = () => {
             Shop Now
           </Link>
           <Link to="/about" className="btn-outline">
-            Our Story
+            Explore Collection
           </Link>
         </div>
         <div className="mt-10 flex flex-wrap justify-center gap-8 text-white/60 text-sm">
@@ -71,7 +71,7 @@ const Hero = () => {
 
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
 
-          <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-6 hover:border-accent transition-all duration-300 hover:-translate-y-2">
+          <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-6 hover:border-brand-gold transition-all duration-300 hover:-translate-y-2">
             <img
               src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500"
               alt="iPhone"
@@ -86,12 +86,12 @@ const Hero = () => {
               iPhone 16 Pro
             </h3>
 
-            <p className="text-accent font-bold mt-3">
+            <p className="text-brand-gold font-bold mt-3">
               ₹1,19,999
             </p>
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-6 hover:border-accent transition-all duration-300 hover:-translate-y-2">
+          <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-6 hover:border-brand-gold transition-all duration-300 hover:-translate-y-2">
             <img
               src="https://images.unsplash.com/photo-1517336714739-489689fd1ca8?w=500"
               alt="MacBook"
@@ -106,12 +106,12 @@ const Hero = () => {
               MacBook Air M4
             </h3>
 
-            <p className="text-accent font-bold mt-3">
+            <p className="text-brand-gold font-bold mt-3">
               ₹1,39,999
             </p>
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-6 hover:border-accent transition-all duration-300 hover:-translate-y-2">
+          <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-6 hover:border-brand-gold transition-all duration-300 hover:-translate-y-2">
             <img
               src="https://images.unsplash.com/photo-1606813907291-d86efa9b94db?w=500"
               alt="PlayStation"
@@ -126,7 +126,7 @@ const Hero = () => {
               PlayStation 5
             </h3>
 
-            <p className="text-accent font-bold mt-3">
+            <p className="text-brand-gold font-bold mt-3">
               ₹54,999
             </p>
           </div>

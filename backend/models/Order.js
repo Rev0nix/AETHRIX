@@ -50,7 +50,20 @@ const orderSchema = new mongoose.Schema(
     discountAmount: { type: Number, required: true, default: 0 },
     taxPrice: { type: Number, required: true, default: 0 },
     totalPrice: { type: Number, required: true, default: 0 },
+    // Retained for existing documents and older API consumers. New code should
+    // use paymentStatus as the source of truth.
     isPaid: { type: Boolean, default: false },
+    paymentStatus: {
+      type: String,
+      enum: [
+        "pending",
+        "paid",
+        "failed",
+        "refund_pending",
+        "refunded",
+      ],
+      default: "pending",
+    },
     paidAt: { type: Date },
     status: {
       type: String,
@@ -58,6 +71,10 @@ const orderSchema = new mongoose.Schema(
       default: 'pending',
     },
     trackingNumber: { type: String },
+    courier: {
+      type: String,
+      default: "",
+    },
     trackingSteps: {
       type: [trackingStepSchema],
       default: () => [
@@ -69,6 +86,9 @@ const orderSchema = new mongoose.Schema(
       ],
     },
     deliveredAt: { type: Date },
+    estimatedDelivery: {
+      type: Date,
+    },
     cancelReason: { type: String },
   },
   { timestamps: true }
@@ -76,7 +96,11 @@ const orderSchema = new mongoose.Schema(
 
 orderSchema.pre('validate', function (next) {
   if (!this.orderNumber) {
-    this.orderNumber = 'AX-' + Date.now().toString().slice(-8);
+    this.orderNumber =
+      "AX" +
+      new Date().getFullYear() +
+      "-" +
+      Math.random().toString(36).substring(2, 8).toUpperCase();
   }
   next();
 });

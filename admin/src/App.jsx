@@ -9,6 +9,9 @@ import Coupons from './pages/Coupons';
 import Analytics from './pages/Analytics';
 import Messages from './pages/Messages';
 import AutoImport from "./pages/AutoImport";
+import OrderDetails from "./pages/OrderDetails";
+import Invoice from "./pages/Invoice";
+
 
 function App() {
   return (
@@ -23,6 +26,11 @@ function App() {
         <Route path="/analytics" element={<Analytics />} />
         <Route path="/messages" element={<Messages />} />
         <Route path="/auto-import" element={<AutoImport />} />
+        <Route
+          path="/orders/:id"
+          element={<OrderDetails />}
+        />
+        <Route path="/invoice/:id" element={<Invoice />} />
       </Route>
     </Routes>
   );

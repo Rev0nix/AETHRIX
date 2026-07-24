@@ -1,74 +1,71 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { TbStarFilled, TbChevronLeft, TbChevronRight } from 'react-icons/tb';
-import { testimonials } from '../../data/staticContent';
+import { TbStarFilled } from "react-icons/tb";
 
-const Testimonials = () => {
-  const [index, setIndex] = useState(0);
+const reviews = [
+  {
+    name: "Rahul Sharma",
+    rating: 5,
+    review:
+      "Amazing quality and super fast delivery. The premium packaging made the experience even better.",
+  },
+  {
+    name: "Priya Patel",
+    rating: 5,
+    review:
+      "Excellent customer service and genuine products. Highly recommended!",
+  },
+  {
+    name: "Arjun Kumar",
+    rating: 5,
+    review:
+      "The website is smooth, products are premium, and delivery was on time.",
+  },
+];
 
-  useEffect(() => {
-    const interval = setInterval(() => setIndex((i) => (i + 1) % testimonials.length), 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const next = () => setIndex((i) => (i + 1) % testimonials.length);
-  const prev = () => setIndex((i) => (i - 1 + testimonials.length) % testimonials.length);
-  const t = testimonials[index];
-
+export default function Testimonials() {
   return (
-    <section className="py-24 px-6 bg-[#060810]">
-      <div className="text-center mb-14">
-        <div className="eyebrow mb-4">✦ Community</div>
-        <h2 className="section-title">Testimonials</h2>
-      </div>
+    <section className="py-20 px-6 lg:px-10">
+      <div className="max-w-7xl mx-auto">
 
-      <div className="max-w-xl mx-auto relative">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={index}
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -30 }}
-            transition={{ duration: 0.4 }}
-            className="glass p-10 text-center"
-          >
-            <div className="flex justify-center gap-1 text-accent-glow mb-5">
-              {Array.from({ length: t.rating }).map((_, i) => (
-                <TbStarFilled key={i} />
-              ))}
-            </div>
-            <p className="font-serif italic text-lg text-white/75 leading-relaxed mb-6">"{t.text}"</p>
-            <div className="flex items-center justify-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-base-600 to-accent-dim flex items-center justify-center text-xs font-bold">
-                {t.name.split(' ').map((n) => n[0]).join('')}
-              </div>
-              <div className="text-left">
-                <div className="text-xs tracking-wider uppercase font-semibold">{t.name}</div>
-                <div className="text-xs text-white/35">{t.location}</div>
-              </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
+        <div className="text-center mb-14">
+          <div className="eyebrow mb-3">
+            ✦ Testimonials
+          </div>
 
-        <button onClick={prev} className="absolute -left-4 md:-left-12 top-1/2 -translate-y-1/2 text-white/40 hover:text-white text-2xl">
-          <TbChevronLeft />
-        </button>
-        <button onClick={next} className="absolute -right-4 md:-right-12 top-1/2 -translate-y-1/2 text-white/40 hover:text-white text-2xl">
-          <TbChevronRight />
-        </button>
+          <h2 className="section-title">
+            What Our Customers Say
+          </h2>
 
-        <div className="flex justify-center gap-2 mt-6">
-          {testimonials.map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setIndex(i)}
-              className={`w-2 h-2 rounded-full transition-colors ${i === index ? 'bg-accent' : 'bg-white/15'}`}
-            />
-          ))}
+          <p className="text-white/60 mt-4">
+            Trusted by thousands of happy customers.
+          </p>
         </div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+
+          {reviews.map((review) => (
+            <div
+              key={review.name}
+              className="bg-[#111111] border border-white/10 rounded-2xl p-8 hover:border-brand-gold transition"
+            >
+              <div className="flex gap-1 mb-5 text-brand-gold">
+                {Array.from({ length: review.rating }).map((_, i) => (
+                  <TbStarFilled key={i} />
+                ))}
+              </div>
+
+              <p className="text-white/70 leading-7">
+                "{review.review}"
+              </p>
+
+              <h4 className="mt-6 font-semibold text-white">
+                {review.name}
+              </h4>
+            </div>
+          ))}
+
+        </div>
+
       </div>
     </section>
   );
-};
-
-export default Testimonials;
+}
