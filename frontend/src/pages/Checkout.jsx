@@ -67,7 +67,7 @@ const Checkout = () => {
       couponCode,
     });
     clearCart();
-    navigate(`/orders?placed=${order.orderNumber}`);
+    navigate(`/order-success?placed=${order.orderNumber}`);
   };
 
   const placeRazorpayOrder = async () => {
@@ -98,7 +98,7 @@ const Checkout = () => {
             razorpaySignature: response.razorpay_signature,
           });
           clearCart();
-          navigate(`/orders?placed=${order.orderNumber}`);
+          navigate(`/order-success?placed=${order.orderNumber}`);
         } catch (err) {
           alert(err.message || 'Order creation failed after payment');
         }

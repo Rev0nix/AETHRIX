@@ -14,7 +14,7 @@ import {
 
 import { useAuth } from "../../hooks/useAuth";
 import { useCart } from "../../hooks/useCart";
-import { useWishlist } from "../../hooks/useWishlist";
+import { useWishlist } from "../../context/WishlistContext";
 
 import SearchBar from "../SearchBar";
 import SearchDrawer from "../SearchDrawer/SearchDrawer";
@@ -134,7 +134,7 @@ const Navbar = () => {
               <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-red-500"></span>
             </div>
 
-            <Link to="/profile?tab=wishlist" className="relative text-white/65 hover:text-white transition-colors text-lg">
+            <Link to="/wishlist" className="relative text-white/65 hover:text-white transition-colors text-lg">
               <TbHeart />
               {wishlist.length > 0 && (
                 <span className="absolute -top-1.5 -right-1.5 bg-brand-gold text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">

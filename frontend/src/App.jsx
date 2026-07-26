@@ -13,7 +13,10 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Profile from './pages/Profile';
 import Orders from './pages/Orders';
+import MyOrders from './pages/MyOrders';
 import TrackOrder from './pages/TrackOrder';
+import OrderDetails from "./pages/OrderDetails";
+import Wishlist from "./pages/Wishlist";
 
 function App() {
   return (
@@ -44,13 +47,32 @@ function App() {
           }
         />
         <Route
-          path="/orders"
+          path="/order-success"
           element={
             <ProtectedRoute>
               <Orders />
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path="/orders/:id"
+          element={
+            <ProtectedRoute>
+              <OrderDetails />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/orders"
+          element={
+            <ProtectedRoute>
+              <MyOrders />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/track-order" element={<TrackOrder />} />
       </Route>
     </Routes>

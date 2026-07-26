@@ -1,60 +1,73 @@
-import { createContext, useState, useEffect, useCallback, useContext } from 'react';
-import api from '../services/api';
-import { AuthContext } from './AuthContext';
+import { createContext, useContext, useEffect, useState } from "react";
+import { wishlistService } from "../services/wishlistService";
 
-export const WishlistContext = createContext(null);
-
-const STORAGE_KEY = 'aethrix_wishlist';
+export const WishlistContext = createContext();
 
 export const WishlistProvider = ({ children }) => {
-  const { isAuthenticated } = useContext(AuthContext) || {};
-  const [wishlist, setWishlist] = useState(() => {
+  const [wishlist, setWishlist] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const loadWishlist = async () => {
     try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      return stored ? JSON.parse(stored) : [];
-    } catch {
-      return [];
+      const data = await wishlistService.getWishlist();
+      setWishlist(data.items || []);
+    } catch (error) {
+      console.error("Failed to load wishlist:", error);
+      setWishlist([]);
+    } finally {
+      setLoading(false);
     }
-  });
+  };
 
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(wishlist));
-  }, [wishlist]);
+    loadWishlist();
+  }, []);
 
-  // Sync with backend when authenticated
-  useEffect(() => {
-    if (isAuthenticated) {
-      api
-        .get('/users/wishlist')
-        .then((r) => setWishlist(r.data.data))
-        .catch(() => {});
+  const addToWishlist = async (productId) => {
+    await wishlistService.addToWishlist(productId);
+    await loadWishlist();
+  };
+
+  const removeFromWishlist = async (productId) => {
+    await wishlistService.removeFromWishlist(productId);
+    await loadWishlist();
+  };
+
+  // Check whether a product is already in the wishlist
+  const isWishlisted = (productId) => {
+    return wishlist.some(
+      (item) =>
+        item.product?._id === productId ||
+        item.product === productId
+    );
+  };
+
+  // Toggle wishlist state
+  const toggleWishlist = async (product) => {
+    const productId = product._id || product;
+
+    if (isWishlisted(productId)) {
+      await removeFromWishlist(productId);
+    } else {
+      await addToWishlist(productId);
     }
-  }, [isAuthenticated]);
-
-  const toggleWishlist = useCallback(
-    async (product) => {
-      const exists = wishlist.find((p) => p._id === product._id);
-      if (exists) {
-        setWishlist((prev) => prev.filter((p) => p._id !== product._id));
-      } else {
-        setWishlist((prev) => [...prev, product]);
-      }
-      if (isAuthenticated) {
-        try {
-          await api.post(`/users/wishlist/${product._id}`);
-        } catch {
-          /* best-effort sync */
-        }
-      }
-    },
-    [wishlist, isAuthenticated]
-  );
-
-  const isWishlisted = useCallback((productId) => wishlist.some((p) => p._id === productId), [wishlist]);
+  };
 
   return (
-    <WishlistContext.Provider value={{ wishlist, toggleWishlist, isWishlisted }}>
+    <WishlistContext.Provider
+      value={{
+        wishlist,
+        loading,
+        addToWishlist,
+        removeFromWishlist,
+        toggleWishlist,
+        isWishlisted,
+        reloadWishlist: loadWishlist,
+      }}
+    >
       {children}
     </WishlistContext.Provider>
   );
 };
+
+export const useWishlist = () => useContext(WishlistContext);

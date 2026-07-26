@@ -100,20 +100,20 @@ const OrderDetails = () => {
                             Shipping Address
                         </h2>
 
-                        <p>{order.shippingAddress.fullName}</p>
-                        <p>{order.shippingAddress.phone}</p>
-                        <p>{order.shippingAddress.line1}</p>
+                        Subtotal
+                        ₹{order.itemsPrice.toLocaleString("en-IN")}
 
-                        {order.shippingAddress.line2 && (
-                            <p>{order.shippingAddress.line2}</p>
-                        )}
+                        Shipping
+                        ₹{order.shippingPrice.toLocaleString("en-IN")}
 
-                        <p>
-                            {order.shippingAddress.city},{" "}
-                            {order.shippingAddress.state}
-                        </p>
+                        Discount
+                        ₹{order.discountAmount.toLocaleString("en-IN")}
 
-                        <p>{order.shippingAddress.pincode}</p>
+                        Tax
+                        ₹{order.taxPrice.toLocaleString("en-IN")}
+
+                        Total
+                        ₹{order.totalPrice.toLocaleString("en-IN")}
 
                     </div>
 
@@ -187,196 +187,196 @@ const OrderDetails = () => {
 
                 <div className="space-y-6">
 
-                {/* Order Information */}
+                    {/* Order Information */}
 
-                <div className="bg-base-900 border border-white/10 rounded-xl p-6">
+                    <div className="bg-base-900 border border-white/10 rounded-xl p-6">
 
-                    <h2 className="text-xl font-bold mb-5">
-                        Order Information
-                    </h2>
+                        <h2 className="text-xl font-bold mb-5">
+                            Order Information
+                        </h2>
 
-                    <div className="space-y-3">
+                        <div className="space-y-3">
 
-                        <div className="flex justify-between">
-                            <span className="text-white/50">Order No</span>
-                            <span>{order.orderNumber}</span>
-                        </div>
+                            <div className="flex justify-between">
+                                <span className="text-white/50">Order No</span>
+                                <span>{order.orderNumber}</span>
+                            </div>
 
-                        <div className="flex justify-between">
-                            <span className="text-white/50">Status</span>
+                            <div className="flex justify-between">
+                                <span className="text-white/50">Status</span>
 
-                            <span className="capitalize bg-blue-500/10 text-blue-400 px-3 py-1 rounded-full text-xs">
-                                {order.status.replaceAll("_", " ")}
-                            </span>
-                        </div>
+                                <span className="capitalize bg-blue-500/10 text-blue-400 px-3 py-1 rounded-full text-xs">
+                                    {order.status.replaceAll("_", " ")}
+                                </span>
+                            </div>
 
-                        <div className="mt-5">
+                            <div className="mt-5">
 
-                            <label className="text-sm text-white/50 block mb-2">
-                                Update Status
-                            </label>
+                                <label className="text-sm text-white/50 block mb-2">
+                                    Update Status
+                                </label>
 
-                            <select
-                                value={status}
-                                onChange={(e) => setStatus(e.target.value)}
-                                className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2"
-                            >
-                                <option value="pending">Pending</option>
-                                <option value="confirmed">Confirmed</option>
-                                <option value="packed">Packed</option>
-                                <option value="shipped">Shipped</option>
-                                <option value="out_for_delivery">Out for Delivery</option>
-                                <option value="delivered">Delivered</option>
-                                <option value="cancelled">Cancelled</option>
-                            </select>
+                                <select
+                                    value={status}
+                                    onChange={(e) => setStatus(e.target.value)}
+                                    className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2"
+                                >
+                                    <option value="pending">Pending</option>
+                                    <option value="confirmed">Confirmed</option>
+                                    <option value="packed">Packed</option>
+                                    <option value="shipped">Shipped</option>
+                                    <option value="out_for_delivery">Out for Delivery</option>
+                                    <option value="delivered">Delivered</option>
+                                    <option value="cancelled">Cancelled</option>
+                                </select>
 
-                        </div>
+                            </div>
 
-                        <div className="flex justify-between">
-                            <span className="text-white/50">Payment</span>
+                            <div className="flex justify-between">
+                                <span className="text-white/50">Payment</span>
 
-                            <span
-                                className={`${(order.paymentStatus || (order.isPaid ? "paid" : "pending")) === "paid"
-                                    ? "text-green-400"
-                                    : "text-yellow-400"
-                                    } capitalize`}
-                            >
-                                {(order.paymentStatus || (order.isPaid ? "paid" : "pending")).replaceAll("_", " ")}
-                            </span>
-                        </div>
+                                <span
+                                    className={`${(order.paymentStatus || (order.isPaid ? "paid" : "pending")) === "paid"
+                                        ? "text-green-400"
+                                        : "text-yellow-400"
+                                        } capitalize`}
+                                >
+                                    {(order.paymentStatus || (order.isPaid ? "paid" : "pending")).replaceAll("_", " ")}
+                                </span>
+                            </div>
 
-                        <div className="flex justify-between">
-                            <span className="text-white/50">Method</span>
-                            <span className="uppercase">
-                                {order.paymentMethod}
-                            </span>
-                        </div>
+                            <div className="flex justify-between">
+                                <span className="text-white/50">Method</span>
+                                <span className="uppercase">
+                                    {order.paymentMethod}
+                                </span>
+                            </div>
 
-                        <div className="flex justify-between">
-                            <span className="text-white/50">Ordered On</span>
+                            <div className="flex justify-between">
+                                <span className="text-white/50">Ordered On</span>
 
-                            <span>
-                                {new Date(order.createdAt).toLocaleString()}
-                            </span>
-                        </div>
-
-                    </div>
-                    <button
-                        onClick={updateOrderStatus}
-                        className="mt-5 w-full bg-accent hover:bg-accent-dim rounded-lg py-2 font-semibold"
-                    >
-                        Save Status
-                    </button>
-
-                    <div className="flex justify-between">
-                        <span className="text-white/50">Courier</span>
-                        <span>{order.courier || "-"}</span>
-                    </div>
-
-                    <div className="flex justify-between">
-                        <span className="text-white/50">Tracking No.</span>
-                        <span>{order.trackingNumber || "-"}</span>
-                    </div>
-
-                    <input
-                        placeholder="Courier Name"
-                        value={courier}
-                        onChange={(event) => setCourier(event.target.value)}
-                        className="mt-3 w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm outline-none focus:border-accent"
-                    />
-
-                    <input
-                        placeholder="Tracking Number"
-                        value={trackingNumber}
-                        onChange={(event) => setTrackingNumber(event.target.value)}
-                        className="mt-3 w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm outline-none focus:border-accent"
-                    />
-
-                </div>
-
-                {/* Summary */}
-
-                <div className="bg-base-900 border border-white/10 rounded-xl p-6">
-
-                    <h2 className="text-xl font-bold mb-4">
-                        Summary
-                    </h2>
-
-                    <div className="space-y-2">
-
-                        <div className="flex justify-between">
-                            <span>Items</span>
-                            <span>₹{order.itemsPrice}</span>
-                        </div>
-
-                        <div className="flex justify-between">
-                            <span>Shipping</span>
-                            <span>₹{order.shippingPrice}</span>
-                        </div>
-
-                        <div className="flex justify-between">
-                            <span>Discount</span>
-                            <span>-₹{order.discountAmount}</span>
-                        </div>
-
-                        <hr className="border-white/10" />
-
-                        <div className="flex justify-between font-bold text-lg">
-
-                            <span>Total</span>
-
-                            <span>
-                                ₹{order.totalPrice}
-                            </span>
+                                <span>
+                                    {new Date(order.createdAt).toLocaleString()}
+                                </span>
+                            </div>
 
                         </div>
-
-                    </div>
-
-                </div>
-
-                {/* Tracking */}
-                <div className="bg-base-900 border border-white/10 rounded-xl p-6">
-
-                    <h2 className="text-xl font-bold mb-5">
-                        Tracking
-                    </h2>
-
-
-                </div>
-
-                <div className="bg-base-900 border border-white/10 rounded-xl p-6">
-
-                    <h2 className="text-lg font-bold mb-4">
-                        Actions
-                    </h2>
-
-                    <div className="grid gap-3">
-
-                        <button
-                            onClick={() => navigate(`/invoice/${order._id}`)}
-                            className="bg-green-600 hover:bg-green-700 rounded-lg py-2"
-                        >
-                            Print Invoice
-                        </button>
-
-                        <a
-                            href={`mailto:${order.user?.email}`}
-                            className="rounded-lg bg-blue-600 py-2 text-center hover:bg-blue-700"
-                        >
-                            Send Email
-                        </a>
-
                         <button
                             onClick={updateOrderStatus}
-                            className="bg-yellow-600 hover:bg-yellow-700 rounded-lg py-2"
+                            className="mt-5 w-full bg-accent hover:bg-accent-dim rounded-lg py-2 font-semibold"
                         >
-                            Update Tracking
+                            Save Status
                         </button>
+
+                        <div className="flex justify-between">
+                            <span className="text-white/50">Courier</span>
+                            <span>{order.courier || "-"}</span>
+                        </div>
+
+                        <div className="flex justify-between">
+                            <span className="text-white/50">Tracking No.</span>
+                            <span>{order.trackingNumber || "-"}</span>
+                        </div>
+
+                        <input
+                            placeholder="Courier Name"
+                            value={courier}
+                            onChange={(event) => setCourier(event.target.value)}
+                            className="mt-3 w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm outline-none focus:border-accent"
+                        />
+
+                        <input
+                            placeholder="Tracking Number"
+                            value={trackingNumber}
+                            onChange={(event) => setTrackingNumber(event.target.value)}
+                            className="mt-3 w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm outline-none focus:border-accent"
+                        />
 
                     </div>
 
-                </div>
+                    {/* Summary */}
+
+                    <div className="bg-base-900 border border-white/10 rounded-xl p-6">
+
+                        <h2 className="text-xl font-bold mb-4">
+                            Summary
+                        </h2>
+
+                        <div className="space-y-2">
+
+                            <div className="flex justify-between">
+                                <span>Items</span>
+                                <span>₹{order.itemsPrice}</span>
+                            </div>
+
+                            <div className="flex justify-between">
+                                <span>Shipping</span>
+                                <span>₹{order.shippingPrice}</span>
+                            </div>
+
+                            <div className="flex justify-between">
+                                <span>Discount</span>
+                                <span>-₹{order.discountAmount}</span>
+                            </div>
+
+                            <hr className="border-white/10" />
+
+                            <div className="flex justify-between font-bold text-lg">
+
+                                <span>Total</span>
+
+                                <span>
+                                    ₹{order.totalPrice}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    {/* Tracking */}
+                    <div className="bg-base-900 border border-white/10 rounded-xl p-6">
+
+                        <h2 className="text-xl font-bold mb-5">
+                            Tracking
+                        </h2>
+
+
+                    </div>
+
+                    <div className="bg-base-900 border border-white/10 rounded-xl p-6">
+
+                        <h2 className="text-lg font-bold mb-4">
+                            Actions
+                        </h2>
+
+                        <div className="grid gap-3">
+
+                            <button
+                                onClick={() => navigate(`/invoice/${order._id}`)}
+                                className="bg-green-600 hover:bg-green-700 rounded-lg py-2"
+                            >
+                                Print Invoice
+                            </button>
+
+                            <a
+                                href={`mailto:${order.user?.email}`}
+                                className="rounded-lg bg-blue-600 py-2 text-center hover:bg-blue-700"
+                            >
+                                Send Email
+                            </a>
+
+                            <button
+                                onClick={updateOrderStatus}
+                                className="bg-yellow-600 hover:bg-yellow-700 rounded-lg py-2"
+                            >
+                                Update Tracking
+                            </button>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
