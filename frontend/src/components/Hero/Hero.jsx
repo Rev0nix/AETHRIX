@@ -56,8 +56,8 @@ const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-4 sm:px-6">
-
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      
       {/* Background layers */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#05070d] via-[#0a0e1a] to-[#05070d]" />
 
@@ -89,7 +89,26 @@ const Hero = () => {
 
         <div className="eyebrow mb-6">✦</div>
 
-        <h1 className="font-heading text-[58px] sm:text-[76px] md:text-[120px] lg:text-[150px] leading-[0.8] tracking-[0.04em] md:tracking-[0.01em] bg-gradient-to-b from-white via-white to-white/25 bg-clip-text text-transparent whitespace-nowrap">
+        <h1
+          className="
+    font-heading
+    text-[58px]
+    sm:text-[72px]
+    md:text-[120px]
+    lg:text-[180px]
+    leading-[0.9]
+    tracking-[0.02em]
+    md:tracking-[0.06em]
+    lg:tracking-[0.1em]
+    whitespace-nowrap
+    bg-gradient-to-b
+    from-white
+    via-white
+    to-white/25
+    bg-clip-text
+    text-transparent
+  "
+        >
           AETHRIX
         </h1>
 
