@@ -62,132 +62,84 @@ const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-[#05070d] via-[#0a0e1a] to-[#05070d]" />
 
       <div
-        className="absolute inset-0 opacity-[0.04]"
+        className="absolute inset-0 opacity-[0.035] pointer-events-none"
         style={{
-          backgroundImage:
-            'repeating-linear-gradient(0deg,#fff,#fff 1px,transparent 1px,transparent 64px),repeating-linear-gradient(90deg,#fff,#fff 1px,transparent 1px,transparent 64px)',
+          backgroundImage: `
+      linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)
+    `,
+          backgroundSize: '64px 64px',
         }}
       />
 
       <div className="absolute w-[600px] h-[600px] rounded-full bg-brand-gold/10 blur-[120px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
 
       {/* Floating shapes */}
-      <div className="absolute w-24 h-24 border border-brand-gold/20 top-[18%] left-[7%] animate-floatY" />
+      <div className="absolute w-12 h-12 sm:w-16 sm:h-16 md:w-24 md:h-24 border border-brand-gold/20 top-[18%] left-[4%] animate-floatY" />
 
-      <div className="absolute w-14 h-14 border border-brand-gold/20 top-[62%] left-[4%] animate-floatY [animation-delay:2.2s]" />
+      <div className="absolute w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14 border border-brand-gold/20 top-[62%] left-[3%] animate-floatY [animation-delay:2.2s]" />
 
-      <div className="absolute w-16 h-16 border border-brand-gold/20 top-[22%] right-[7%] animate-floatY [animation-delay:1.1s]" />
+      <div className="absolute w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 border border-brand-gold/20 top-[22%] right-[4%] animate-floatY [animation-delay:1.1s]" />
 
-      <div className="absolute w-10 h-10 border border-brand-gold/20 bottom-[28%] right-[5%] animate-floatY [animation-delay:3.3s]" />
+      <div className="absolute w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 border border-brand-gold/20 bottom-[20%] right-[4%] animate-floatY [animation-delay:3.3s]" />
 
       <motion.div
         initial={{ opacity: 0, y: 36 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, ease: 'easeOut' }}
-        className="relative z-10 text-center px-6"
+        className="relative z-10 w-full text-center px-4 sm:px-6 pt-12 sm:pt-16 md:pt-20 pb-16"
       >
 
         <div className="eyebrow mb-6">✦</div>
 
-        <h1 className="
-  font-heading
-  text-[54px]
-  sm:text-[80px]
-  md:text-[120px]
-  lg:text-[180px]
-  leading-none
-  tracking-[0.08em]
-  sm:tracking-[0.1em]
-  bg-gradient-to-b
-  from-white
-  via-white
-  to-white/25
-  bg-clip-text
-  text-transparent
-  whitespace-nowrap
-">
+        <h1 className="font-heading text-[58px] sm:text-[76px] md:text-[120px] lg:text-[180px] leading-[0.9] tracking-[0.04em] md:tracking-[0.1em] bg-gradient-to-b from-white via-white to-white/25 bg-clip-text text-transparent whitespace-nowrap">
           AETHRIX
         </h1>
 
-        <p className="
-  font-body
-  italic
-  text-base
-  sm:text-lg
-  md:text-2xl
-  text-white/50
-  tracking-wide
-  mt-3
-  mb-4
-">
+        <p className="font-body italic text-base sm:text-lg md:text-2xl text-white/50 tracking-wide mt-4 mb-4">
           Luxury Redefined
         </p>
 
-        <p className="
-  text-xs
-  sm:text-sm
-  text-white/35
-  max-w-xs
-  sm:max-w-md
-  mx-auto
-  leading-6
-  sm:leading-7
-  mb-8
-  sm:mb-12
-">
+        <p className="text-sm sm:text-base text-white/40 max-w-md mx-auto leading-6 sm:leading-7 mb-8 sm:mb-10 px-4">
           ✦Curated for those who expect more✦
         </p>
 
         {/* Buttons */}
-        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">
+        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-4">
           <Link
             to="/shop"
-            className="btn-primary w-full sm:w-auto text-center"
+            className="btn-primary w-full sm:w-auto min-w-[220px] text-center"
           >
             Shop Now
           </Link>
 
           <Link
             to="/about"
-            className="btn-outline w-full sm:w-auto text-center"
+            className="btn-outline w-full sm:w-auto min-w-[220px] text-center"
           >
             Explore Collection
           </Link>
         </div>
 
         {/* Features */}
-        <div className="
-  mt-8
-  sm:mt-10
-  flex
-  flex-wrap
-  justify-center
-  gap-x-5
-  gap-y-3
-  sm:gap-8
-  text-xs
-  sm:text-sm
-  text-white/60
-  max-w-2xl
-  mx-auto
-">
+        <div className="mt-9 sm:mt-10 grid grid-cols-2 sm:flex sm:flex-wrap justify-center gap-x-6 gap-y-5 sm:gap-8 text-white/60 text-xs sm:text-sm max-w-md sm:max-w-none mx-auto">
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-center gap-2">
             🚚
             <span>Free Shipping</span>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-center gap-2">
             🔄
             <span>7 Days Return</span>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-center gap-2">
             🔒
             <span>Secure Payment</span>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-center gap-2">
             ⭐
             <span>25K+ Happy Customers</span>
           </div>
@@ -198,19 +150,7 @@ const Hero = () => {
         {/* DYNAMIC PRODUCTS */}
         {/* ============================= */}
 
-        <div className="
-  mt-12
-  sm:mt-16
-  grid
-  grid-cols-1
-  sm:grid-cols-2
-  md:grid-cols-3
-  gap-4
-  sm:gap-6
-  max-w-5xl
-  mx-auto
-  w-full
-">
+        <div className="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 w-full max-w-5xl mx-auto px-2 sm:px-0">
 
           {loadingProducts ? (
 
@@ -218,7 +158,7 @@ const Hero = () => {
             [1, 2, 3].map((item) => (
               <div
                 key={item}
-                className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-6 animate-pulse"
+                className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-4 sm:p-6 animate-pulse"
               >
                 <div className="
   w-full
@@ -265,7 +205,7 @@ const Hero = () => {
                   className="group"
                 >
 
-                  <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-6 hover:border-brand-gold transition-all duration-300 hover:-translate-y-2">
+                  <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-4 sm:p-6 hover:border-brand-gold transition-all duration-300 hover:-translate-y-2">
 
                     {/* Product image */}
                     <div className="w-full h-48 rounded-xl mb-4 overflow-hidden bg-white/5 flex items-center justify-center">
@@ -290,7 +230,7 @@ const Hero = () => {
                     </p>
 
                     {/* Product name */}
-                    <h3 className="text-white text-xl font-semibold mt-2 line-clamp-2">
+                    <h3 className="text-white text-lg sm:text-xl font-semibold mt-2 leading-snug">
                       {product.name}
                     </h3>
 
@@ -312,7 +252,7 @@ const Hero = () => {
       </motion.div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-9 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/25 text-[10px] tracking-[0.25em] uppercase">
+      <div className="hidden md:flex absolute bottom-9 left-1/2 -translate-x-1/2 flex-col items-center gap-2 text-white/25 text-[10px] tracking-[0.25em] uppercase">
         <div className="w-px h-12 bg-gradient-to-b from-transparent to-white/30" />
         Scroll
       </div>
