@@ -81,11 +81,6 @@ const ProductCard = ({ product }) => {
 
         </div>
 
-        {/* Delivery */}
-        <p className="text-xs text-green-300 mt-2">
-          🚚 Free Delivery
-        </p>
-        <br />
         {/* Price */}
         <div className="mt-2 flex items-baseline gap-2 flex-wrap">
 
