@@ -65,7 +65,7 @@ const Hero = () => {
         className="absolute inset-0 opacity-[0.04]"
         style={{
           backgroundImage:
-            'repeating-linear-gradient(0deg,#fff,#fff 1px,transparent 1px,transparent 64px),repeating-linear-gradient(90deg,#fff,#fff 1px,transparent 1px,transparent 64px)',
+            'repeating-linear-gradient(0deg,#fff,#fff 1px,transparent 7px,transparent 65px),repeating-linear-gradient(90deg,#fff,#fff 2px,transparent 7px,transparent 64px)',
         }}
       />
 
@@ -89,7 +89,7 @@ const Hero = () => {
 
         <div className="eyebrow mb-6">✦</div>
 
-        <h1 className="font-heading text-[58px] sm:text-[76px] md:text-[120px] lg:text-[180px] leading-[0.9] tracking-[0.04em] md:tracking-[0.1em] bg-gradient-to-b from-white via-white to-white/25 bg-clip-text text-transparent whitespace-nowrap">
+        <h1 className="font-heading text-[58px] sm:text-[77px] md:text-[120px] lg:text-[175px] leading-[1] tracking-[10em] md:tracking-[0em] bg-gradient-to-b from-white via-white to-white/24 bg-clip-text text-transparent whitespace-nowrap">
           AETHRIX
         </h1>
 
