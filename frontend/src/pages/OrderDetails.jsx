@@ -8,6 +8,30 @@ const OrderDetails = () => {
 
     const [order, setOrder] = useState(null);
 
+    const handleCancel = async () => {
+        console.log("Cancel button clicked");
+
+        console.log("Skipping confirmation");
+
+        console.log("User confirmed");
+
+        try {
+            console.log("Calling API...");
+            const updated = await orderService.cancelOrder(order._id);
+
+            console.log("API Success:", updated);
+
+            setOrder(updated);
+
+            alert("Order cancelled successfully.");
+        } catch (err) {
+            console.error("API Error:", err);
+            console.log("Response:", err.response);
+
+            alert(err.response?.data?.message || "Unable to cancel order.");
+        }
+    };
+
     useEffect(() => {
         const loadOrder = async () => {
             try {
@@ -145,6 +169,14 @@ const OrderDetails = () => {
                             </p>
                         )}
 
+                        {order.estimatedDelivery && (
+                            <p className="text-green-400">
+                                Estimated Delivery:
+                                {" "}
+                                {new Date(order.estimatedDelivery).toLocaleDateString("en-IN")}
+                            </p>
+                        )}
+
                     </div>
 
                 </div>
@@ -166,17 +198,22 @@ const OrderDetails = () => {
 
                         <div className="flex gap-4">
 
-                            <img
-                                src={item.image}
-                                alt={item.name}
-                                className="w-20 h-20 rounded-xl object-cover"
-                            />
+                            <Link to={`/product/${item.product}`}>
+                                <img
+                                    src={item.image}
+                                    alt={item.name}
+                                    className="w-20 h-20 rounded-xl object-cover hover:scale-105 transition"
+                                />
+                            </Link>
 
                             <div>
 
-                                <h3 className="font-semibold">
+                                <Link
+                                    to={`/product/${item.product}`}
+                                    className="font-semibold hover:text-brand-gold"
+                                >
                                     {item.name}
-                                </h3>
+                                </Link>
 
                                 <p className="text-white/50">
                                     Qty: {item.qty}
@@ -253,6 +290,20 @@ const OrderDetails = () => {
                 <div className="space-y-3">
 
                     <div className="flex justify-between">
+                        <span>Payment Method</span>
+                        <span className="uppercase">
+                            {order.paymentMethod}
+                        </span>
+                    </div>
+
+                    <div className="flex justify-between">
+                        <span>Payment Status</span>
+                        <span className="capitalize">
+                            {order.paymentStatus}
+                        </span>
+                    </div>
+
+                    <div className="flex justify-between">
                         <span>Subtotal</span>
                         <span>₹{order.itemsPrice.toLocaleString("en-IN")}</span>
                     </div>
@@ -327,8 +378,17 @@ const OrderDetails = () => {
                     Buy Again
                 </button>
 
+                {["pending", "confirmed", "packed"].includes(order.status) && (
+                    <button
+                        onClick={handleCancel}
+                        className="btn-outline text-red-400"
+                    >
+                        Cancel Order
+                    </button>
+                )}
+
                 <Link
-                    to="/orders"
+                    to="/profile?tab=orders"
                     className="btn-outline"
                 >
                     Back to Orders

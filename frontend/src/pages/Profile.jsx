@@ -57,9 +57,8 @@ const Profile = () => {
             <button
               key={t}
               onClick={() => setSearchParams({ tab: t })}
-              className={`text-left text-sm px-3 py-2.5 capitalize transition-colors border-l-2 ${
-                tab === t ? 'text-white border-accent bg-white/5' : 'text-white/40 border-transparent hover:text-white/70'
-              }`}
+              className={`text-left text-sm px-3 py-2.5 capitalize transition-colors border-l-2 ${tab === t ? 'text-white border-accent bg-white/5' : 'text-white/40 border-transparent hover:text-white/70'
+                }`}
             >
               {t}
             </button>
@@ -95,7 +94,11 @@ const Profile = () => {
             ) : (
               <div className="flex flex-col gap-4">
                 {orders.map((o) => (
-                  <div key={o._id} className="border border-white/10 p-5 flex justify-between items-center flex-wrap gap-3">
+                  <Link
+                    to={`/orders/${o._id}`}
+                    key={o._id}
+                    className="border border-white/10 p-5 flex justify-between items-center flex-wrap gap-3 hover:border-accent transition"
+                  >
                     <div>
                       <div className="font-semibold text-sm">{o.orderNumber}</div>
                       <div className="text-xs text-white/35 mt-1">{new Date(o.createdAt).toLocaleDateString('en-IN')}</div>
@@ -104,7 +107,7 @@ const Profile = () => {
                     <span className="text-[10px] uppercase tracking-wider bg-accent/15 text-accent-glow px-3 py-1.5 rounded">
                       {o.status.replace('_', ' ')}
                     </span>
-                  </div>
+                  </Link>
                 ))}
               </div>
             )}
@@ -119,12 +122,28 @@ const Profile = () => {
               <p className="text-sm text-white/30">Nothing wishlisted yet.</p>
             ) : (
               <div className="flex flex-col gap-4">
-                {wishlist.map((p) => (
-                  <div key={p._id} className="flex items-center gap-4 border-b border-white/5 pb-4">
-                    <div className="w-14 h-[70px] bg-base-700 flex-shrink-0" />
+                {wishlist.map((item) => (
+                  <div
+                    key={item._id}
+                    className="flex items-center gap-4 border-b border-white/5 pb-4"
+                  >
+                    <img
+                      src={item.product.images?.[0]?.url || "/placeholder.png"}
+                      alt={item.product.name}
+                      className="w-14 h-[70px] object-cover rounded"
+                    />
+
                     <div className="flex-1">
-                      <Link to={`/product/${p.slug}`} className="text-sm font-medium">{p.name}</Link>
-                      <div className="text-sm text-white/40">₹{p.price?.toLocaleString('en-IN')}</div>
+                      <Link
+                        to={`/product/${item.product.slug}`}
+                        className="text-sm font-medium"
+                      >
+                        {item.product.name}
+                      </Link>
+
+                      <div className="text-sm text-white/40">
+                        ₹{item.product.price?.toLocaleString("en-IN")}
+                      </div>
                     </div>
                   </div>
                 ))}

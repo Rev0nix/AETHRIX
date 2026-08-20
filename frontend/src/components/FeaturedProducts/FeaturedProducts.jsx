@@ -18,8 +18,8 @@ const FeaturedProducts = () => {
   }, []);
 
   return (
-    <section className="py-24 px-6 lg:px-10">
-      <div className="text-center mb-16">
+    <section className="py-16 sm:py-24 px-4 sm:px-6 lg:px-10">
+      <div className="text-center mb-10 sm:mb-16">
         <div className="eyebrow mb-4">✦ Hand-Picked</div>
         <div className="eyebrow mb-4">
           ✦ Premium Collection
@@ -29,7 +29,19 @@ const FeaturedProducts = () => {
           Featured Products
         </h2>
 
-        <p className="text-lg text-white/60 mt-5 max-w-2xl mx-auto leading-8">
+        <p className="
+  text-sm
+  sm:text-base
+  lg:text-lg
+  text-white/60
+  mt-4
+  sm:mt-5
+  max-w-2xl
+  mx-auto
+  leading-7
+  sm:leading-8
+  px-2
+">
           Discover our handpicked premium collection, carefully selected for exceptional quality, style, and value.
         </p>
       </div>
@@ -50,7 +62,18 @@ const FeaturedProducts = () => {
                 },
               },
             }}
-            className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+            className="
+  max-w-7xl
+  mx-auto
+  grid
+  grid-cols-2
+  sm:grid-cols-2
+  md:grid-cols-3
+  lg:grid-cols-4
+  gap-3
+  sm:gap-5
+  lg:gap-8
+"
           >
             {products.map((p) => (
               <motion.div

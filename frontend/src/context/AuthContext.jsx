@@ -32,6 +32,12 @@ export const AuthProvider = ({ children }) => {
 
   const login = useCallback(async (credentials) => {
     const data = await authService.login(credentials);
+    console.log("LOGIN RESPONSE:", data);
+
+    localStorage.setItem("aethrix_token", data.token);
+    localStorage.setItem("aethrix_user", JSON.stringify(data));
+
+    console.log("TOKEN AFTER SAVE:", localStorage.getItem("aethrix_token"));
     localStorage.setItem('aethrix_token', data.token);
     localStorage.setItem('aethrix_user', JSON.stringify(data));
     setUser(data);

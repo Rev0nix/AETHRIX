@@ -1,8 +1,13 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { useWishlist } from "../context/WishlistContext";
+import { CartContext } from "../context/CartContext";
+
 
 const Wishlist = () => {
   const { wishlist, loading, removeFromWishlist } = useWishlist();
+  console.log(wishlist);
+  const { addToCart } = useContext(CartContext);
 
   if (loading) {
     return (
@@ -36,47 +41,76 @@ const Wishlist = () => {
       ) : (
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-          {wishlist.map((item) => (
-            <div
-              key={item.product._id}
-              className="bg-[#111111] rounded-2xl border border-white/10 p-5"
-            >
-              <img
-                src={item.product.images?.[0]}
-                alt={item.product.name}
-                className="w-full h-60 object-cover rounded-xl"
-              />
+          {wishlist.map((item, index) => {
+            console.log("Item:", item);
+            console.log("Images:", item.product.images);
+            console.log("URL:", item.product.images?.[0]?.url);
 
-              <h2 className="text-xl font-semibold mt-5">
-                {item.product.name}
-              </h2>
+            return (
 
-              <p className="text-brand-gold text-2xl mt-3">
-                ₹{item.product.price}
-              </p>
+              <div
+                key={item._id || item.product?._id || index}
+                className="bg-[#111111] border border-white/10 rounded-2xl overflow-hidden hover:border-brand-gold transition-all"
+              >
 
-              <div className="flex gap-3 mt-6">
-                <Link
-                  to={`/product/${item.product._id}`}
-                  className="btn-primary"
-                >
-                  View
-                </Link>
 
-                <button
-                  onClick={() => removeFromWishlist(item.product._id)}
-                  className="btn-outline"
-                >
-                  Remove
-                </button>
+                <img
+                  src={item.product.images?.[0]?.url || "/placeholder.png"}
+                  alt={item.product.name}
+                  className="w-full h-72 object-cover"
+                />
+
+                <div className="p-5">
+                  <h2 className="text-lg font-semibold text-white line-clamp-2">
+                    {item.product.name}
+                  </h2>
+
+                  <p className="text-brand-gold text-2xl font-bold mt-3">
+                    ₹{item.product.price}
+                  </p>
+
+                  <div className="flex flex-col gap-3 mt-5">
+
+                    <button
+                      onClick={() => {
+                        addToCart(item.product, 1);
+                        removeFromWishlist(item.product._id);
+                      }}
+                      className="btn-primary w-full"
+                    >
+                      Move to Cart
+                    </button>
+
+                    <div className="flex gap-3">
+                      <Link
+                        to={`/product/${item.product.slug || item.product._id}`}
+                        className="btn-outline flex-1 text-center"
+                      >
+                        View
+                      </Link>
+
+                      <button
+                        onClick={() => removeFromWishlist(item.product._id)}
+                        className="btn-outline flex-1"
+                      >
+                        Remove
+                      </button>
+                    </div>
+
+                  </div>
+
+                </div>
               </div>
-            </div>
-          ))}
+
+            );
+
+          })}
 
         </div>
-      )}
+      )
+      }
 
-    </div>
+    </div >
   );
 };
 

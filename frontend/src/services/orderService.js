@@ -10,6 +10,10 @@ export const orderService = {
   // Admin
   getAll: (params) => api.get('/orders', { params }).then((r) => r.data),
   updateStatus: (id, data) => api.put(`/orders/${id}/status`, data).then((r) => r.data.data),
+  cancelOrder: async (id) => {
+    const { data } = await api.put(`/orders/${id}/cancel`);
+    return data.data;
+  },
   getDashboardStats: () => api.get('/orders/stats/dashboard').then((r) => r.data.data),
 };
 

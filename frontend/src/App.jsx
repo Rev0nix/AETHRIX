@@ -17,6 +17,7 @@ import MyOrders from './pages/MyOrders';
 import TrackOrder from './pages/TrackOrder';
 import OrderDetails from "./pages/OrderDetails";
 import Wishlist from "./pages/Wishlist";
+import OrderSuccess from "./pages/OrderSuccess";
 
 function App() {
   return (
@@ -71,6 +72,10 @@ function App() {
               <MyOrders />
             </ProtectedRoute>
           }
+        />
+        <Route
+          path="/order-success"
+          element={<OrderSuccess />}
         />
         <Route path="/wishlist" element={<Wishlist />} />
         <Route path="/track-order" element={<TrackOrder />} />

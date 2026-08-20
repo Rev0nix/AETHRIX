@@ -199,6 +199,7 @@ const getOrderById = asyncHandler(async (req, res) => {
   res.json({ success: true, data: order });
 });
 
+
 // @desc    Track order by order number (public-ish, requires order number)
 // @route   GET /api/orders/track/:orderNumber
 // @access  Public
@@ -373,6 +374,47 @@ const getDashboardStats = asyncHandler(async (req, res) => {
   });
 });
 
+const cancelOrder = asyncHandler(async (req, res) => {
+  const order = await Order.findById(req.params.id);
+
+  if (!order) {
+    res.status(404);
+    throw new Error("Order not found");
+  }
+
+  if (order.user.toString() !== req.user._id.toString()) {
+    res.status(403);
+    throw new Error("Not authorized");
+  }
+
+  if (
+    !["pending", "confirmed", "packed"].includes(order.status)
+  ) {
+    res.status(400);
+    throw new Error("This order cannot be cancelled");
+  }
+
+  order.status = "cancelled";
+
+  if (order.paymentStatus === "paid") {
+    order.paymentStatus = "refund_pending";
+  }
+
+  order.trackingSteps.push({
+    label: "Cancelled",
+    completed: true,
+    completedAt: new Date(),
+  });
+
+  await order.save();
+
+  res.json({
+    success: true,
+    message: "Order cancelled successfully",
+    data: order,
+  });
+});
+
 module.exports = {
   createRazorpayOrder,
   createOrder,
@@ -382,4 +424,5 @@ module.exports = {
   getAllOrders,
   updateOrderStatus,
   getDashboardStats,
+  cancelOrder,
 };

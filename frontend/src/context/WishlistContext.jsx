@@ -10,6 +10,11 @@ export const WishlistProvider = ({ children }) => {
   const loadWishlist = async () => {
     try {
       const data = await wishlistService.getWishlist();
+
+      console.log("Wishlist API:", data);
+      console.log("Wishlist Items:", data.items);
+      console.log("First Product:", data.items?.[0]?.product);
+
       setWishlist(data.items || []);
     } catch (error) {
       console.error("Failed to load wishlist:", error);
