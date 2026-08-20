@@ -62,26 +62,23 @@ const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-[#05070d] via-[#0a0e1a] to-[#05070d]" />
 
       <div
-        className="absolute inset-0 opacity-[0.035] pointer-events-none"
+        className="absolute inset-0 opacity-[0.04]"
         style={{
-          backgroundImage: `
-      linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)
-    `,
-          backgroundSize: '64px 64px',
+          backgroundImage:
+            'repeating-linear-gradient(0deg,#fff,#fff 1px,transparent 1px,transparent 64px),repeating-linear-gradient(90deg,#fff,#fff 1px,transparent 1px,transparent 64px)',
         }}
       />
 
       <div className="absolute w-[600px] h-[600px] rounded-full bg-brand-gold/10 blur-[120px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
 
       {/* Floating shapes */}
-      <div className="absolute w-12 h-12 sm:w-16 sm:h-16 md:w-24 md:h-24 border border-brand-gold/20 top-[18%] left-[4%] animate-floatY" />
+      <div className="absolute w-24 h-24 border border-brand-gold/20 top-[18%] left-[7%] animate-floatY" />
 
-      <div className="absolute w-8 h-8 sm:w-10 sm:h-10 md:w-14 md:h-14 border border-brand-gold/20 top-[62%] left-[3%] animate-floatY [animation-delay:2.2s]" />
+      <div className="absolute w-14 h-14 border border-brand-gold/20 top-[62%] left-[4%] animate-floatY [animation-delay:2.2s]" />
 
-      <div className="absolute w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 border border-brand-gold/20 top-[22%] right-[4%] animate-floatY [animation-delay:1.1s]" />
+      <div className="absolute w-16 h-16 border border-brand-gold/20 top-[22%] right-[7%] animate-floatY [animation-delay:1.1s]" />
 
-      <div className="absolute w-7 h-7 sm:w-8 sm:h-8 md:w-10 md:h-10 border border-brand-gold/20 bottom-[20%] right-[4%] animate-floatY [animation-delay:3.3s]" />
+      <div className="absolute w-10 h-10 border border-brand-gold/20 bottom-[28%] right-[5%] animate-floatY [animation-delay:3.3s]" />
 
       <motion.div
         initial={{ opacity: 0, y: 36 }}
@@ -252,7 +249,7 @@ const Hero = () => {
       </motion.div>
 
       {/* Scroll indicator */}
-      <div className="hidden md:flex absolute bottom-9 left-1/2 -translate-x-1/2 flex-col items-center gap-2 text-white/25 text-[10px] tracking-[0.25em] uppercase">
+      <div className="absolute bottom-9 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/25 text-[10px] tracking-[0.25em] uppercase">
         <div className="w-px h-12 bg-gradient-to-b from-transparent to-white/30" />
         Scroll
       </div>
