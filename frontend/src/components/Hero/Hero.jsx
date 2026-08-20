@@ -65,7 +65,7 @@ const Hero = () => {
         className="absolute inset-0 opacity-[0.04]"
         style={{
           backgroundImage:
-            'repeating-linear-gradient(0deg,#fff,#fff 1px,transparent 7px,transparent 65px),repeating-linear-gradient(90deg,#fff,#fff 2px,transparent 7px,transparent 64px)',
+            'repeating-linear-gradient(0deg,#fff,#fff 1px,transparent 1px,transparent 64px),repeating-linear-gradient(90deg,#fff,#fff 1px,transparent 1px,transparent 64px)',
         }}
       />
 
@@ -89,7 +89,7 @@ const Hero = () => {
 
         <div className="eyebrow mb-6">✦</div>
 
-        <h1 className="font-heading text-[58git statuspx] sm:text-[77px] md:text-[120px] lg:text-[175px] leading-[1] tracking-[10em] md:tracking-[0em] bg-gradient-to-b from-white via-white to-white/24 bg-clip-text text-transparent whitespace-nowrap">
+        <h1 className="font-heading text-[58px] sm:text-[76px] md:text-[120px] lg:text-[150px] leading-[0.8] tracking-[0.04em] md:tracking-[0.01em] bg-gradient-to-b from-white via-white to-white/25 bg-clip-text text-transparent whitespace-nowrap">
           AETHRIX
         </h1>
 
@@ -147,7 +147,19 @@ const Hero = () => {
         {/* DYNAMIC PRODUCTS */}
         {/* ============================= */}
 
-        <div className="mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 w-full max-w-5xl mx-auto px-2 sm:px-0">
+        <div className="
+  mt-12
+  sm:mt-16
+  grid
+  grid-cols-1
+  sm:grid-cols-2
+  md:grid-cols-3
+  gap-4
+  sm:gap-6
+  max-w-5xl
+  mx-auto
+  w-full
+">
 
           {loadingProducts ? (
 
@@ -155,7 +167,7 @@ const Hero = () => {
             [1, 2, 3].map((item) => (
               <div
                 key={item}
-                className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-4 sm:p-6 animate-pulse"
+                className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-6 animate-pulse"
               >
                 <div className="
   w-full
@@ -202,7 +214,7 @@ const Hero = () => {
                   className="group"
                 >
 
-                  <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-4 sm:p-6 hover:border-brand-gold transition-all duration-300 hover:-translate-y-2">
+                  <div className="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md p-6 hover:border-brand-gold transition-all duration-300 hover:-translate-y-2">
 
                     {/* Product image */}
                     <div className="w-full h-48 rounded-xl mb-4 overflow-hidden bg-white/5 flex items-center justify-center">
@@ -227,7 +239,7 @@ const Hero = () => {
                     </p>
 
                     {/* Product name */}
-                    <h3 className="text-white text-lg sm:text-xl font-semibold mt-2 leading-snug">
+                    <h3 className="text-white text-xl font-semibold mt-2 line-clamp-2">
                       {product.name}
                     </h3>
 
