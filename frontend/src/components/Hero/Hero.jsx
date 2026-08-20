@@ -89,7 +89,7 @@ const Hero = () => {
 
         <div className="eyebrow mb-6">✦</div>
 
-        <h1 className="font-heading text-[58px] sm:text-[77px] md:text-[120px] lg:text-[175px] leading-[1] tracking-[10em] md:tracking-[0em] bg-gradient-to-b from-white via-white to-white/24 bg-clip-text text-transparent whitespace-nowrap">
+        <h1 className="font-heading text-[58git statuspx] sm:text-[77px] md:text-[120px] lg:text-[175px] leading-[1] tracking-[10em] md:tracking-[0em] bg-gradient-to-b from-white via-white to-white/24 bg-clip-text text-transparent whitespace-nowrap">
           AETHRIX
         </h1>
 
