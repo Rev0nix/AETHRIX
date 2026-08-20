@@ -606,7 +606,7 @@ const Product = () => {
           <img
             src={product.images[activeImg].url}
             alt={product.name}
-            className="max-w-[90vw] max-h-[90vh] object-contain rounded-xl"
+            className="max-w-[90vw] max-h-[90vh] object-cover rounded-xl"
           />
 
           {/* Next */}
