@@ -51,75 +51,109 @@ const Navbar = () => {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass shadow-lg' : 'bg-transparent'
           }`}
       >
-        <div className="
-  w-full
-  max-w-7xl
-  mx-auto
-  px-3
-  sm:px-6
-  lg:px-10
-  h-[68px]
-  sm:h-[70px]
-  flex
-  items-center
-">
-          <div className="flex items-center gap-2 sm:gap-4 lg:gap-10 min-w-0">
+        <div className="w-full max-w-[1500px] mx-auto px-4 sm:px-6 xl:px-8 h-[68px] sm:h-[70px] flex items-center">
 
+          {/* LEFT: Logo */}
+          <div className="shrink-0">
             <Link
               to="/"
-              className="flex items-center gap-2 sm:gap-3 shrink-0"
+              className="flex items-center gap-2 sm:gap-3"
             >
               <img
                 src={logo}
                 alt="AETHRIX Logo"
-                className="h-8 sm:h-10 w-auto"
+                className="h-8 sm:h-10 w-auto shrink-0"
               />
 
-              <span className="
-  font-heading
-  text-base
-  sm:text-xl
-  tracking-[0.22em]
-  sm:tracking-[0.35em]
-  text-brand-gold
-  font-bold
-">
+              <span
+                className="
+          font-heading
+          text-base
+          sm:text-xl
+          tracking-[0.22em]
+          sm:tracking-[0.3em]
+          text-brand-gold
+          font-bold
+          whitespace-nowrap
+        "
+              >
                 AETHRIX
               </span>
             </Link>
-
-            <div className="hidden xl:flex items-center gap-1 text-white">
-              <TbMapPin size={20} />
-
-            </div>
-
           </div>
 
-          <ul className="hidden lg:flex ml-8 gap-7 list-none items-center">
+          {/* CENTER: Desktop Navigation */}
+          <ul className="
+    hidden
+    xl:flex
+    items-center
+    justify-center
+    gap-5
+    2xl:gap-7
+    flex-1
+    min-w-0
+    mx-6
+    2xl:mx-10
+    list-none
+  ">
 
             {NAV_LINKS.map((link) => (
-              <li key={link.to}>
+              <li key={link.to} className="shrink-0">
                 <Link
                   to={link.to}
-                  className="text-xs tracking-[0.2em] uppercase text-white/55 hover:text-white transition-colors"
+                  className="
+            text-[11px]
+            tracking-[0.16em]
+            uppercase
+            text-white/55
+            hover:text-white
+            transition-colors
+            whitespace-nowrap
+          "
                 >
                   {link.label}
                 </Link>
               </li>
             ))}
 
+            {/* Categories */}
             <li
-              className="relative"
+              className="relative shrink-0"
               onMouseEnter={() => setShowCategories(true)}
               onMouseLeave={() => setShowCategories(false)}
             >
-              <button className="text-xs tracking-[0.2em] uppercase text-white/70 hover:text-brand-gold transition-all duration-300">
+              <button
+                type="button"
+                className="
+          text-[11px]
+          tracking-[0.16em]
+          uppercase
+          text-white/70
+          hover:text-brand-gold
+          transition-all
+          whitespace-nowrap
+        "
+              >
                 Categories ▼
               </button>
 
               {showCategories && (
-                <div className="absolute top-8 left-0 bg-black border border-white/10 rounded-xl p-6 w-[800px] grid grid-cols-4 gap-6 z-50">
-
+                <div className="
+          absolute
+          top-8
+          left-1/2
+          -translate-x-1/2
+          bg-black
+          border
+          border-white/10
+          rounded-xl
+          p-6
+          w-[760px]
+          grid
+          grid-cols-4
+          gap-6
+          z-[100]
+        ">
                   {categories.map((cat) => (
                     <div key={cat.slug}>
                       <h3 className="font-bold text-white mb-3">
@@ -131,50 +165,98 @@ const Navbar = () => {
                           <Link
                             key={sub}
                             to={`/shop?category=${cat.slug}&subCategory=${encodeURIComponent(sub)}`}
-                            className="block text-sm text-white/60 hover:text-white"
+                            className="
+                      block
+                      text-sm
+                      text-white/60
+                      hover:text-white
+                      transition
+                    "
                           >
                             {sub}
                           </Link>
                         ))}
                       </div>
-
                     </div>
                   ))}
-
                 </div>
               )}
             </li>
-
           </ul>
 
-          <div className="flex items-center gap-3 sm:gap-4 ml-auto">
+          {/* RIGHT: Search + Actions */}
+          <div className="flex items-center gap-1 sm:gap-1 shrink-0">
 
-            {/* Desktop Search */}
-            <div className="hidden md:block">
+            {/* Search - desktop only */}
+            <div className="hidden xl:block w-[280px] 2xl:w-[450px]">
               <SearchBar />
             </div>
 
-            {/* Notifications */}
+            {/* Notification */}
             <button
               type="button"
-              className="relative flex items-center justify-center w-9 h-9 text-white/75 hover:text-white transition"
+              className="
+        relative
+        flex
+        items-center
+        justify-center
+        w-9
+        h-9
+        text-white/75
+        hover:text-white
+        transition
+        shrink-0
+      "
               aria-label="Notifications"
             >
               <TbBell size={21} />
 
-              <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-red-500" />
+              <span className="
+        absolute
+        top-1
+        right-1
+        w-2
+        h-2
+        rounded-full
+        bg-red-500
+      " />
             </button>
 
             {/* Wishlist */}
             <Link
               to="/profile?tab=wishlist"
-              className="relative flex items-center justify-center w-9 h-9 text-white/75 hover:text-white transition"
+              className="
+        relative
+        flex
+        items-center
+        justify-center
+        w-9
+        h-9
+        text-white/75
+        hover:text-white
+        transition
+        shrink-0
+      "
               aria-label="Wishlist"
             >
               <TbHeart size={21} />
 
               {wishlist.length > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-brand-gold text-black text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                <span className="
+          absolute
+          -top-0.5
+          -right-0.5
+          bg-brand-gold
+          text-black
+          text-[9px]
+          w-4
+          h-4
+          rounded-full
+          flex
+          items-center
+          justify-center
+          font-bold
+        ">
                   {wishlist.length}
                 </span>
               )}
@@ -183,42 +265,84 @@ const Navbar = () => {
             {/* Cart */}
             <Link
               to="/cart"
-              className="relative flex items-center justify-center w-9 h-9 text-white/75 hover:text-white transition"
+              className="
+        relative
+        flex
+        items-center
+        justify-center
+        w-9
+        h-9
+        text-white/75
+        hover:text-white
+        transition
+        shrink-0
+      "
               aria-label="Shopping cart"
             >
               <TbShoppingBag size={21} />
 
               {itemCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-brand-gold text-black text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                <span className="
+          absolute
+          -top-0.5
+          -right-0.5
+          bg-brand-gold
+          text-black
+          text-[9px]
+          w-4
+          h-4
+          rounded-full
+          flex
+          items-center
+          justify-center
+          font-bold
+        ">
                   {itemCount}
                 </span>
               )}
             </Link>
 
-            {/* Desktop Account */}
+            {/* Account - desktop */}
             <Link
-              to={isAuthenticated ? '/profile' : '/login'}
-              className="hidden lg:flex items-center text-[11px] tracking-[0.15em] uppercase border border-white/15 hover:border-brand-gold px-4 py-1.5 transition-colors"
+              to={isAuthenticated ? "/profile" : "/login"}
+              className="
+        hidden
+        xl:flex
+        items-center
+        justify-center
+        min-w-[58px]
+        text-[10px]
+        tracking-[0.15em]
+        uppercase
+        border
+        border-white/15
+        hover:border-brand-gold
+        px-3
+        py-2
+        transition-colors
+        whitespace-nowrap
+      "
             >
               {isAuthenticated
-                ? user?.name?.split(' ')[0]
-                : 'Sign In'}
+                ? user?.name?.split(" ")[0]
+                : "Sign In"}
             </Link>
 
-            {/* Mobile Menu */}
+            {/* Mobile / Tablet menu */}
             <button
               type="button"
               className="
-      lg:hidden
-      flex
-      items-center
-      justify-center
-      w-9
-      h-9
-      text-white
-      hover:text-brand-gold
-      transition
-    "
+        xl:hidden
+        flex
+        items-center
+        justify-center
+        w-9
+        h-9
+        text-white
+        hover:text-brand-gold
+        transition
+        shrink-0
+      "
               onClick={() => setMobileOpen(true)}
               aria-label="Open menu"
             >
@@ -226,6 +350,7 @@ const Navbar = () => {
             </button>
 
           </div>
+
         </div>
       </nav>
 
