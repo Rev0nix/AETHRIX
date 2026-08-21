@@ -52,13 +52,13 @@ const NovaChat = () => {
     <>
       <button
         onClick={() => setOpen((o) => !o)}
-        className="fixed bottom-6 right-6 z-[150] w-14 h-14 rounded-full bg-accent hover:bg-accent-dim shadow-glow flex items-center justify-center text-xl transition-transform hover:scale-105"
+        className="fixed bottom-6 right-6 z-[150] w-10 h-10 rounded-full bg-accent hover:bg-accent-dim shadow-glow flex items-center justify-center text-xl transition-transform hover:scale-105"
       >
         {open ? <TbX /> : <TbMessageCircle />}
       </button>
 
       {!open && (
-        <div className="fixed bottom-24 right-6 z-[150] glass px-4 py-2 text-xs hidden md:flex items-center gap-2 animate-floatY">
+        <div className="fixed bottom-24 right-6 z-[150] glass px-2 py-1 text-xs hidden md:flex items-center gap-1 animate-floatY">
           <TbSparkles className="text-accent-glow" />
           <span>Need Help? Chat with Nova</span>
         </div>
@@ -70,8 +70,8 @@ const NovaChat = () => {
             initial={{ opacity: 0, y: 20, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.96 }}
-            transition={{ duration: 0.25 }}
-            className="fixed bottom-24 right-6 z-[150] w-[340px] max-w-[92vw] h-[460px] bg-base-900 border border-white/10 rounded-xl shadow-2xl flex flex-col overflow-hidden"
+            transition={{ duration: 0.35 }}
+            className="fixed bottom-24 right-5 z-[150] w-[325px] max-w-[92vw] h-[450px] bg-base-900 border border-white/50 rounded-xl shadow-2xl flex flex-col overflow-hidden"
           >
             <div className="flex items-center gap-3 px-5 py-4 border-b border-white/10 bg-gradient-to-r from-accent/15 to-transparent">
               <div className="w-9 h-9 rounded-full bg-accent flex items-center justify-center">
