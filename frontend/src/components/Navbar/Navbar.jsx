@@ -51,17 +51,39 @@ const Navbar = () => {
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'glass shadow-lg' : 'bg-transparent'
           }`}
       >
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 h-[70px] flex items-center">
-          <div className="flex items-center gap-14">
+        <div className="
+  w-full
+  max-w-7xl
+  mx-auto
+  px-3
+  sm:px-6
+  lg:px-10
+  h-[68px]
+  sm:h-[70px]
+  flex
+  items-center
+">
+          <div className="flex items-center gap-2 sm:gap-4 lg:gap-10 min-w-0">
 
-            <Link to="/" className="flex items-center gap-3">
+            <Link
+              to="/"
+              className="flex items-center gap-2 sm:gap-3 shrink-0"
+            >
               <img
                 src={logo}
                 alt="AETHRIX Logo"
-                className="h-10 w-auto"
+                className="h-8 sm:h-10 w-auto"
               />
 
-              <span className="font-heading text-xl tracking-[0.35em] text-brand-gold font-bold">
+              <span className="
+  font-heading
+  text-base
+  sm:text-xl
+  tracking-[0.22em]
+  sm:tracking-[0.35em]
+  text-brand-gold
+  font-bold
+">
                 AETHRIX
               </span>
             </Link>
@@ -125,42 +147,82 @@ const Navbar = () => {
 
           </ul>
 
-          <div className="flex items-center gap-8 ml-12">
+          <div className="flex items-center gap-3 sm:gap-4 ml-auto">
 
-            <SearchBar />
-
-            <div className="relative cursor-pointer text-white/70 hover:text-white transition">
-              <TbBell size={22} />
-              <span className="absolute -top-1 -right-1 w-2 h-2 rounded-full bg-red-500"></span>
+            {/* Desktop Search */}
+            <div className="hidden md:block">
+              <SearchBar />
             </div>
 
-            <Link to="/wishlist" className="relative text-white/65 hover:text-white transition-colors text-lg">
-              <TbHeart />
+            {/* Notifications */}
+            <button
+              type="button"
+              className="relative flex items-center justify-center w-9 h-9 text-white/75 hover:text-white transition"
+              aria-label="Notifications"
+            >
+              <TbBell size={21} />
+
+              <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-red-500" />
+            </button>
+
+            {/* Wishlist */}
+            <Link
+              to="/profile?tab=wishlist"
+              className="relative flex items-center justify-center w-9 h-9 text-white/75 hover:text-white transition"
+              aria-label="Wishlist"
+            >
+              <TbHeart size={21} />
+
               {wishlist.length > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-brand-gold text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                <span className="absolute -top-0.5 -right-0.5 bg-brand-gold text-black text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
                   {wishlist.length}
                 </span>
               )}
             </Link>
 
-            <Link to="/cart" className="relative text-white/65 hover:text-white transition-colors text-lg">
-              <TbShoppingBag />
+            {/* Cart */}
+            <Link
+              to="/cart"
+              className="relative flex items-center justify-center w-9 h-9 text-white/75 hover:text-white transition"
+              aria-label="Shopping cart"
+            >
+              <TbShoppingBag size={21} />
+
               {itemCount > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 bg-brand-gold text-white text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
+                <span className="absolute -top-0.5 -right-0.5 bg-brand-gold text-black text-[9px] w-4 h-4 rounded-full flex items-center justify-center font-bold">
                   {itemCount}
                 </span>
               )}
             </Link>
 
+            {/* Desktop Account */}
             <Link
               to={isAuthenticated ? '/profile' : '/login'}
-              className="hidden sm:block text-[11px] tracking-[0.15em] uppercase border border-white/15 hover:border-brand-gold px-4 py-1.5 transition-colors"
+              className="hidden lg:flex items-center text-[11px] tracking-[0.15em] uppercase border border-white/15 hover:border-brand-gold px-4 py-1.5 transition-colors"
             >
-              {isAuthenticated ? user?.name?.split(' ')[0] : 'Sign In'}
+              {isAuthenticated
+                ? user?.name?.split(' ')[0]
+                : 'Sign In'}
             </Link>
 
-            <button className="lg:hidden text-white text-xl" onClick={() => setMobileOpen(true)}>
-              <TbMenu2 />
+            {/* Mobile Menu */}
+            <button
+              type="button"
+              className="
+      lg:hidden
+      flex
+      items-center
+      justify-center
+      w-9
+      h-9
+      text-white
+      hover:text-brand-gold
+      transition
+    "
+              onClick={() => setMobileOpen(true)}
+              aria-label="Open menu"
+            >
+              <TbMenu2 size={25} />
             </button>
 
           </div>

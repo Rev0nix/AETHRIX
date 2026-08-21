@@ -15,10 +15,10 @@ body {
 @layer components {
 
   .glass {
-    background: rgba(255,255,255,.06);
+    background: rgba(255, 255, 255, .06);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border:1px solid rgba(255,255,255,.1);
+    border: 1px solid rgba(255, 255, 255, .1);
   }
 
   .btn-outline {
@@ -31,7 +31,7 @@ body {
 
   .hover-lift:hover {
     transform: translateY(-10px);
-    box-shadow:0 20px 40px rgba(212,175,55,.20);
+    box-shadow: 0 20px 40px rgba(212, 175, 55, .20);
   }
 
   .section-title {
@@ -44,19 +44,32 @@ body {
 
 }
 
-::-webkit-scrollbar{
-width:8px;
+::-webkit-scrollbar {
+  width: 8px;
 }
 
-::-webkit-scrollbar-track{
-background:#0a0e1a;
+::-webkit-scrollbar-track {
+  background: #0a0e1a;
 }
 
-::-webkit-scrollbar-thumb{
-background:#222b46;
-border-radius:4px;
+::-webkit-scrollbar-thumb {
+  background: #222b46;
+  border-radius: 4px;
 }
 
-::-webkit-scrollbar-thumb:hover{
-background:#D4AF37;
+::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow-x: hidden;
 }
