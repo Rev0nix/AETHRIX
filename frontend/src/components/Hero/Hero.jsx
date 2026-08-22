@@ -70,16 +70,7 @@ const Hero = () => {
       />
 
       <div className="absolute w-[600px] h-[600px] rounded-full bg-brand-gold/10 blur-[120px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
-
-      {/* Floating shapes */}
-      <div className="absolute w-24 h-24 border border-brand-gold/20 top-[18%] left-[7%] animate-floatY" />
-
-      <div className="absolute w-14 h-14 border border-brand-gold/20 top-[62%] left-[4%] animate-floatY [animation-delay:2.2s]" />
-
-      <div className="absolute w-16 h-16 border border-brand-gold/20 top-[22%] right-[7%] animate-floatY [animation-delay:1.1s]" />
-
-      <div className="absolute w-10 h-10 border border-brand-gold/20 bottom-[28%] right-[5%] animate-floatY [animation-delay:3.3s]" />
-
+     
       <motion.div
         initial={{ opacity: 0, y: 36 }}
         animate={{ opacity: 1, y: 0 }}
