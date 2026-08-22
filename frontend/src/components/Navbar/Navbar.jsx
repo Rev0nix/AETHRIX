@@ -39,7 +39,7 @@ const Navbar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [showCategories, setShowCategories] = useState(false);
 
-  
+
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -64,7 +64,13 @@ const Navbar = () => {
               <img
                 src={logo}
                 alt="AETHRIX Logo"
-                className="h-8 sm:h-10 w-auto shrink-0"
+                className="
+    h-8
+    sm:h-10
+    w-auto
+    shrink-0
+    rounded-3xl
+  "
               />
 
               <span
