@@ -56,94 +56,21 @@ const Hero = () => {
   };
 
   return (
-    <section
-      className="relative h-screen flex items-center justify-center overflow-hidden"
-      style={{
-        background: "var(--aethrix-bg)",
-        color: "var(--aethrix-text)",
-      }}
-    >
-      {/* =====================================================
-    AETHRIX PREMIUM BACKGROUND
-    ===================================================== */}
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      
+      {/* Background layers */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#05070d] via-[#0a0e1a] to-[#05070d]" />
 
       <div
-        className="absolute inset-0"
+        className="absolute inset-0 opacity-[0.04]"
         style={{
-          background: "var(--aethrix-bg)",
+          backgroundImage:
+            'repeating-linear-gradient(0deg,#fff,#fff 1px,transparent 1px,transparent 64px),repeating-linear-gradient(90deg,#fff,#fff 1px,transparent 1px,transparent 64px)',
         }}
       />
 
-      {/* Soft luxury gradient */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: `
-      radial-gradient(
-        ellipse 55% 45% at 50% 38%,
-        rgba(212, 175, 55, 0.075),
-        transparent 70%
-      ),
-      radial-gradient(
-        ellipse 35% 40% at 15% 80%,
-        rgba(255, 255, 255, 0.025),
-        transparent 70%
-      ),
-      radial-gradient(
-        ellipse 35% 40% at 85% 20%,
-        rgba(212, 175, 55, 0.035),
-        transparent 70%
-      ),
-      linear-gradient(
-        135deg,
-        #05060a 0%,
-        #090b12 50%,
-        #05060a 100%
-      )
-    `,
-        }}
-      />
-
-      {/* Extremely subtle premium texture */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.025]"
-        style={{
-          backgroundImage: `
-      linear-gradient(
-        90deg,
-        rgba(255,255,255,0.7) 1px,
-        transparent 1px
-      ),
-      linear-gradient(
-        rgba(255,255,255,0.7) 1px,
-        transparent 1px
-      )
-    `,
-          backgroundSize: '100px 100px',
-          maskImage:
-            'linear-gradient(to bottom, transparent, black 30%, black 70%, transparent)',
-          WebkitMaskImage:
-            'linear-gradient(to bottom, transparent, black 30%, black 70%, transparent)',
-        }}
-      />
-
-      {/* Soft center glow */}
-      <div
-        className="
-    absolute
-    left-1/2
-    top-[38%]
-    -translate-x-1/2
-    -translate-y-1/2
-    w-[520px]
-    h-[260px]
-    rounded-full
-    bg-brand-gold/[0.035]
-    blur-[110px]
-    pointer-events-none
-  "
-      />
-
+      <div className="absolute w-[600px] h-[600px] rounded-full bg-brand-gold/10 blur-[120px] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" />
+     
       <motion.div
         initial={{ opacity: 0, y: 36 }}
         animate={{ opacity: 1, y: 0 }}

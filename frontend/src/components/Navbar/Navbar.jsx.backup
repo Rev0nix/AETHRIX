@@ -39,8 +39,6 @@ const Navbar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [showCategories, setShowCategories] = useState(false);
 
-  
-
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener('scroll', onScroll);
@@ -188,7 +186,6 @@ const Navbar = () => {
 
           {/* RIGHT: Search + Actions */}
           <div className="flex items-center gap-1 sm:gap-1 shrink-0">
-
 
             {/* Search - desktop only */}
             <div className="hidden xl:block w-[280px] 2xl:w-[450px]">
